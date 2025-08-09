@@ -6,6 +6,7 @@
   <title>Formulario Procedimiento - Taller de Redes</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<script src="serializacion_formulario.js"></script>
 <body class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 p-6">
   <div class="w-full max-w-4xl mx-auto p-8 rounded-3xl shadow-2xl bg-white">
     <div class="mb-8">
@@ -583,119 +584,10 @@ document.querySelectorAll('.add-subresponsabilidad').forEach(btn => {
 
     // SERIALIZACIÓN Y ENVÍO DEL FORMULARIO
     document.getElementById('procedimientoForm').addEventListener('submit', (e) => {
+      // ...serialización manual de campos...
+    });
       e.preventDefault();
-      
-      // Serializar Marco Teórico - SIN VIÑETAS
-      const marcoTeoricoItems = document.querySelectorAll('.marco-teorico-input');
-      const marcoTeoricoText = Array.from(marcoTeoricoItems)
-        .map((input) => input.value.trim())
-        .filter(text => text !== '')
-        .join('\n');
-      document.getElementById('marco_teorico_formatted').value = marcoTeoricoText;
-      
-      // Serializar Definiciones - SIN NÚMEROS
-      const defItems = document.querySelectorAll('.definicion-item');
-      const definicionesText = Array.from(defItems)
-        .map((item) => {
-          const termino = item.querySelector('.def-termino').value.trim();
-          const descripcion = item.querySelector('.def-descripcion').value.trim();
-          return termino && descripcion ? `${termino}: ${descripcion}` : '';
-        })
-        .filter(text => text !== '')
-        .join('\n');
-      document.getElementById('definiciones_formatted').value = definicionesText;
-      
-
-// Serializar RESPONSABILIDADES como array de objetos [{responsabilidad, subresponsabilidades:[]}]
-const responsabilidadItems = document.querySelectorAll('.responsabilidad-item');
-const responsabilidadesArray = Array.from(responsabilidadItems).map(item => {
-  const principal = item.querySelector('.responsabilidad-input').value.trim();
-  const subItems = item.querySelectorAll('.subresponsabilidad-input');
-  const subresponsabilidades = Array.from(subItems)
-    .map(sub => sub.value.trim())
-    .filter(text => text);
-  return principal ? { responsabilidad: principal, subresponsabilidades } : null;
-}).filter(obj => obj);
-
-document.getElementById('responsabilidades_formatted').value = JSON.stringify(responsabilidadesArray, null, 2);
-      
-      // Serializar Materiales - SIN VIÑETAS
-      const matItems = document.querySelectorAll('.material-input');
-      const materialesText = Array.from(matItems)
-        .map((input) => input.value.trim())
-        .filter(text => text !== '')
-        .join('\n');
-      document.getElementById('materiales_formatted').value = materialesText;
-      
-      // Serializar Descripción de Actividad - SIN NÚMEROS NI VIÑETAS
-
-      const actividadSections = document.querySelectorAll('.actividad-section');
-     let actividadText = '';
-     
-     actividadSections.forEach((section) => {
-       const sectionTitle = section.querySelector('.section-title').value.trim();
-       
-       if (sectionTitle) {
-         // Solo título, sin número
-         actividadText += `${sectionTitle}\n`;
-         
-         // Contenido principal de la sección sin viñetas
-         const contentItems = section.querySelector('.section-content').querySelectorAll('.content-input');
-         contentItems.forEach(content => {
-           const contentText = content.value.trim();
-           if (contentText) {
-             actividadText += `${contentText}\n`;
-           }
-         });
-         
-         // Subsecciones sin numeración
-         const subsections = section.querySelectorAll('.subsection');
-         subsections.forEach((subsection) => {
-           const subsectionTitle = subsection.querySelector('.subsection-title').value.trim();
-           if (subsectionTitle) {
-             actividadText += `\n${subsectionTitle}\n`;
-             
-             const subContentItems = subsection.querySelectorAll('.content-input');
-             subContentItems.forEach(subContent => {
-               const subContentText = subContent.value.trim();
-               if (subContentText) {
-                 actividadText += `${subContentText}\n`;
-               }
-             });
-           }
-         });
-         
-         actividadText += '\n';
-       }
-     });
-     
-     document.getElementById('descripcion_actividad_formatted').value = actividadText.trim();
-     
-     // Serializar Registros - SIN VIÑETAS
-     const regItems = document.querySelectorAll('.registro-input');
-     const registrosText = Array.from(regItems)
-       .map((input) => input.value.trim())
-       .filter(text => text !== '')
-       .join('\n');
-     document.getElementById('registros_formatted').value = registrosText;
-     
-     // Serializar Control de Cambios
-     const cambioRows = document.querySelectorAll('.cambio-row');
-     let cambiosText = 'Versión N°\tFecha modificación\tDescripción del Cambio\n';
-     cambiosText += '─────────────────────────────────────────────────────\n';
-     
-     cambioRows.forEach(row => {
-       const version = row.querySelector('.cambio-version').value.trim();
-       const fecha = row.querySelector('.cambio-fecha').value;
-       const descripcion = row.querySelector('.cambio-descripcion').value.trim();
-       
-       if (version && fecha && descripcion) {
-         const fechaFormatted = fecha ? new Date(fecha).toLocaleDateString('es-CL') : '';
-         cambiosText += `${version}\t${fechaFormatted}\t${descripcion}\n`;
-       }
-     });
-     
-     document.getElementById('control_cambios_formatted').value = cambiosText;
+      serializarCamposFormulario();
      
      // Crear objeto con todos los datos
      const formData = new FormData(e.target);
