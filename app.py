@@ -8,8 +8,26 @@ import os
 app = FastAPI()
 
 class DataModel(BaseModel):
-    titulo: str
-    items: list[str]
+    nombre_protocolo: str
+    codigo: str
+    fecha_creacion: str
+    version: str
+    fecha_modificacion: str
+    objetivo: str
+    alcance: str
+    marco_teorico: str
+    definiciones: str
+    responsabilidades: str
+    materiales: str
+    descripcion_actividad: str
+    registros: str
+    control_cambios: str
+    elaboro: str
+    cargo_elaboro: str
+    reviso: str
+    cargo_reviso: str
+    aprobo: str
+    cargo_aprobo: str
 
 
 @app.post("/generate-docx/")
