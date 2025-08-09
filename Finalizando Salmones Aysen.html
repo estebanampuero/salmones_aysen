@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario Procedimiento - Taller de Redes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 p-6">
+  <div class="w-full max-w-4xl mx-auto p-8 rounded-3xl shadow-2xl bg-white">
+    <div class="mb-8">
+      <h2 class="text-3xl font-bold text-gray-800 text-center mb-2">Procedimiento de Taller de Redes</h2>
+      <p class="text-center text-gray-600">Redes y Buceo - Salmones Aysén</p>
+    </div>
+
+    <form id="procedimientoForm" class="space-y-6">
+      
+      <!-- Nombre del Protocolo -->
+      <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+        <label for="nombre_protocolo" class="text-gray-700 font-semibold text-sm">NOMBRE DEL PROTOCOLO</label>
+        <input id="nombre_protocolo" name="nombre_protocolo" type="text" required
+          placeholder="Ingrese el nombre del protocolo..."
+          class="border border-gray-300 rounded-xl p-3 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      
+      <!-- Información del documento -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl">
+        <div>
+          <label for="codigo" class="text-gray-700 font-semibold text-sm">Código</label>
+          <p class="text-gray-500 text-xs mb-1">Formato: XX-XX-XX</p>
+          <input id="codigo" name="codigo" type="text" required
+            placeholder="Ej: PR-RB-01"
+            pattern="[A-Z0-9]{2}-[A-Z0-9]{2}-[A-Z0-9]{2}"
+            class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label for="fecha_creacion" class="text-gray-700 font-semibold text-sm">Fecha de Creación</label>
+          <input id="fecha_creacion" name="fecha_creacion" type="date" required
+            class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label for="version" class="text-gray-700 font-semibold text-sm">Versión</label>
+          <input id="version" name="version" type="text" required
+            placeholder="Ej: 01"
+            class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label for="fecha_modificacion" class="text-gray-700 font-semibold text-sm">Fecha de Modificación</label>
+          <input id="fecha_modificacion" name="fecha_modificacion" type="date" required
+            class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+      </div>
+
+      <!-- 1. OBJETIVO -->
+      <div>
+        <label for="objetivo" class="text-gray-700 font-semibold text-sm">1. OBJETIVO</label>
+        <textarea id="objetivo" name="objetivo" rows="4" required
+          placeholder="Ingrese el objetivo del procedimiento..."
+          class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      </div>
+
+      <!-- 2. ALCANCE -->
+      <div>
+        <label for="alcance" class="text-gray-700 font-semibold text-sm">2. ALCANCE</label>
+        <textarea id="alcance" name="alcance" rows="3" required
+          placeholder="Ingrese el alcance del procedimiento..."
+          class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      </div>
+
+      <!-- 3. MARCO TEÓRICO -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">3. MARCO TEÓRICO</label>
+        <div id="marcoTeoricoContainer" class="space-y-2">
+          <div class="marco-teorico-item flex gap-2">
+            <input type="text" class="marco-teorico-input flex-1 border rounded-xl p-3" 
+              placeholder="Ingrese marco teórico...">
+            <button type="button" class="remove-btn text-red-500 px-2" style="display:none">✕</button>
+          </div>
+        </div>
+        <button type="button" id="addMarcoTeorico" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+          + Agregar Marco Teórico
+        </button>
+        <input type="hidden" name="marco_teorico" id="marco_teorico_formatted">
+      </div>
+
+      <!-- 4. DEFINICIONES -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">4. DEFINICIONES</label>
+        <p class="text-gray-500 text-xs mb-2">Formato: Término: Definición</p>
+        <div id="definicionesContainer" class="space-y-2">
+          <div class="definicion-item flex gap-2">
+            <input type="text" class="def-termino border rounded-xl p-3 w-1/3" 
+              placeholder="Término">
+            <span class="text-gray-500 mt-3">:</span>
+            <input type="text" class="def-descripcion border rounded-xl p-3 flex-1" 
+              placeholder="Definición">
+            <button type="button" class="remove-def text-red-500 px-2" style="display:none">✕</button>
+          </div>
+        </div>
+        <button type="button" id="addDefinicion" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+          + Agregar Definición
+        </button>
+        <input type="hidden" name="definiciones" id="definiciones_formatted">
+      </div>
+
+      <!-- 5. RESPONSABILIDADES -->
+      <div>
+  <label class="text-gray-700 font-semibold text-sm">5. RESPONSABILIDADES</label>
+  <div id="responsabilidadesContainer" class="space-y-2">
+    <!-- Responsabilidad principal por defecto -->
+    <div class="responsabilidad-item flex flex-col gap-2 p-2 border rounded-xl bg-gray-50 mb-2">
+      <div class="flex gap-2">
+        <input type="text" class="responsabilidad-input flex-1 border rounded-xl p-3" 
+          placeholder="Ingrese responsabilidad principal...">
+        <button type="button" class="add-subresponsabilidad bg-blue-100 text-blue-700 rounded px-3 py-1 text-sm">
+          + Subresponsabilidad
+        </button>
+        <button type="button" class="remove-resp text-red-500 px-2" style="display:none">✕</button>
+      </div>
+      <div class="subresponsabilidades-container pl-8"></div>
+    </div>
+  </div>
+  <button type="button" id="addResponsabilidad" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+    + Agregar Responsabilidad
+  </button>
+  <input type="hidden" name="responsabilidades" id="responsabilidades_formatted">
+</div>
+
+      <!-- 6. MATERIALES -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">6. MATERIALES</label>
+        <div id="materialesContainer" class="space-y-2">
+          <div class="material-item flex gap-2">
+            <input type="text" class="material-input flex-1 border rounded-xl p-3" 
+              placeholder="Ingrese material...">
+            <button type="button" class="remove-mat text-red-500 px-2" style="display:none">✕</button>
+          </div>
+        </div>
+        <button type="button" id="addMaterial" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+          + Agregar Material
+        </button>
+        <input type="hidden" name="materiales" id="materiales_formatted">
+      </div>
+
+      <!-- 7. DESCRIPCIÓN DE LA ACTIVIDAD -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">7. DESCRIPCIÓN DE LA ACTIVIDAD</label>
+        <p class="text-gray-500 text-xs mb-2">Agregue secciones con sus respectivos contenidos</p>
+        
+        <div id="actividadContainer" class="space-y-4">
+          <div class="actividad-section border rounded-xl p-4" data-section="1">
+            <div class="mb-3">
+              <input type="text" class="section-title w-full border rounded-xl p-2 font-semibold" 
+                placeholder="Título de la sección">
+            </div>
+            <div class="section-content ml-6 space-y-2">
+              <div class="content-item flex gap-2">
+                <textarea class="content-input flex-1 border rounded-xl p-2" rows="2"
+                  placeholder="Contenido o punto de la sección"></textarea>
+                <button type="button" class="remove-content text-red-500 px-2" style="display:none">✕</button>
+              </div>
+            </div>
+            <div class="ml-6 mt-2 flex gap-2">
+              <button type="button" class="add-content bg-blue-100 text-blue-700 rounded px-3 py-1 text-sm">
+                + Agregar punto
+              </button>
+              <button type="button" class="add-subsection bg-green-100 text-green-700 rounded px-3 py-1 text-sm">
+                + Agregar subsección
+              </button>
+            </div>
+            <!-- Contenedor para subsecciones -->
+            <div class="subsections-container ml-6 mt-3 space-y-3"></div>
+            <button type="button" class="remove-section text-red-500 px-2 mt-2" style="display:none">✕ Eliminar sección</button>
+          </div>
+        </div>
+        
+        <button type="button" id="addActividadSection" class="mt-3 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+          + Agregar Sección Principal
+        </button>
+        <input type="hidden" name="descripcion_actividad" id="descripcion_actividad_formatted">
+      </div>
+
+      <!-- 8. REGISTRO -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">8. REGISTRO</label>
+        <div id="registrosContainer" class="space-y-2">
+          <div class="registro-item flex gap-2">
+            <input type="text" class="registro-input flex-1 border rounded-xl p-3" 
+              placeholder="Ingrese registro...">
+            <button type="button" class="remove-reg text-red-500 px-2" style="display:none">✕</button>
+          </div>
+        </div>
+        <button type="button" id="addRegistro" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+          + Agregar Registro
+        </button>
+        <input type="hidden" name="registros" id="registros_formatted">
+      </div>
+
+      <!-- 9. CONTROL DE CAMBIO -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">9. CONTROL DE CAMBIO</label>
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse border border-gray-300 mt-2">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border border-gray-300 p-2 text-sm">Versión N°</th>
+                <th class="border border-gray-300 p-2 text-sm">Fecha modificación</th>
+                <th class="border border-gray-300 p-2 text-sm">Descripción del Cambio</th>
+                <th class="border border-gray-300 p-2 text-sm w-16"></th>
+              </tr>
+            </thead>
+            <tbody id="cambiosTableBody">
+              <tr class="cambio-row">
+                <td class="border border-gray-300 p-2">
+                  <input type="text" class="cambio-version w-full border-0 p-1" placeholder="01">
+                </td>
+                <td class="border border-gray-300 p-2">
+                  <input type="date" class="cambio-fecha w-full border-0 p-1">
+                </td>
+                <td class="border border-gray-300 p-2">
+                  <input type="text" class="cambio-descripcion w-full border-0 p-1" placeholder="Elaboración">
+                </td>
+                <td class="border border-gray-300 p-2 text-center">
+                  <button type="button" class="remove-cambio text-red-500" style="display:none">✕</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" id="addCambio" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+            + Agregar Cambio
+          </button>
+        </div>
+        <input type="hidden" name="control_cambios" id="control_cambios_formatted">
+      </div>
+
+      <!-- Firmas -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t pt-6">
+        <div class="text-center">
+          <label class="text-gray-700 font-semibold text-sm block mb-2">Elaboró</label>
+          <input name="elaboro" type="text" required
+            placeholder="Nombre y apellido"
+            class="border border-gray-300 rounded-xl p-2 w-full mb-2 text-center" />
+          <input name="cargo_elaboro" type="text" required
+            placeholder="Cargo"
+            class="border border-gray-300 rounded-xl p-2 w-full text-center" />
+        </div>
+
+        <div class="text-center">
+          <label class="text-gray-700 font-semibold text-sm block mb-2">Revisó</label>
+          <input name="reviso" type="text" required
+            placeholder="Nombre y apellido"
+            class="border border-gray-300 rounded-xl p-2 w-full mb-2 text-center" />
+          <input name="cargo_reviso" type="text" required
+            placeholder="Cargo"
+            class="border border-gray-300 rounded-xl p-2 w-full text-center" />
+        </div>
+
+        <div class="text-center">
+          <label class="text-gray-700 font-semibold text-sm block mb-2">Aprobó</label>
+          <input name="aprobo" type="text" required
+            placeholder="Nombre y apellido"
+            class="border border-gray-300 rounded-xl p-2 w-full mb-2 text-center" />
+          <input name="cargo_aprobo" type="text" required
+            placeholder="Cargo"
+            class="border border-gray-300 rounded-xl p-2 w-full text-center" />
+        </div>
+      </div>
+
+      <button type="submit" 
+        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 rounded-2xl hover:scale-105 transition-transform duration-300">
+        Enviar Procedimiento
+      </button>
+    </form>
+  </div>
+
+  <script>
+    // Función auxiliar para actualizar botones de eliminar
+    function updateRemoveButtons(container, itemSelector, buttonSelector) {
+      const items = container.querySelectorAll(itemSelector);
+      items.forEach((item) => {
+        const removeBtn = item.querySelector(buttonSelector);
+        if (removeBtn) {
+          removeBtn.style.display = items.length > 1 ? 'block' : 'none';
+        }
+      });
+    }
+
+    // MARCO TEÓRICO
+    document.getElementById('addMarcoTeorico').addEventListener('click', () => {
+      const container = document.getElementById('marcoTeoricoContainer');
+      const newItem = document.createElement('div');
+      newItem.className = 'marco-teorico-item flex gap-2';
+      newItem.innerHTML = `
+        <input type="text" class="marco-teorico-input flex-1 border rounded-xl p-3" 
+          placeholder="Ingrese marco teórico...">
+        <button type="button" class="remove-btn text-red-500 px-2">✕</button>
+      `;
+      container.appendChild(newItem);
+      
+      newItem.querySelector('.remove-btn').addEventListener('click', function() {
+        newItem.remove();
+        updateRemoveButtons(container, '.marco-teorico-item', '.remove-btn');
+      });
+      
+      updateRemoveButtons(container, '.marco-teorico-item', '.remove-btn');
+    });
+
+    // DEFINICIONES
+    document.getElementById('addDefinicion').addEventListener('click', () => {
+      const container = document.getElementById('definicionesContainer');
+      const newDef = document.createElement('div');
+      newDef.className = 'definicion-item flex gap-2';
+      newDef.innerHTML = `
+        <input type="text" class="def-termino border rounded-xl p-3 w-1/3" placeholder="Término">
+        <span class="text-gray-500 mt-3">:</span>
+        <input type="text" class="def-descripcion border rounded-xl p-3 flex-1" placeholder="Definición">
+        <button type="button" class="remove-def text-red-500 px-2">✕</button>
+      `;
+      container.appendChild(newDef);
+      
+      newDef.querySelector('.remove-def').addEventListener('click', function() {
+        newDef.remove();
+        updateRemoveButtons(container, '.definicion-item', '.remove-def');
+      });
+      
+      updateRemoveButtons(container, '.definicion-item', '.remove-def');
+    });
+
+    // RESPONSABILIDADES - NUEVA LÓGICA
+
+function addSubresponsabilidad(container) {
+  const newSub = document.createElement('div');
+  newSub.className = 'flex gap-2 mb-1 subresponsabilidad-item';
+  newSub.innerHTML = `
+    <input type="text" class="subresponsabilidad-input flex-1 border rounded-xl p-3" 
+      placeholder="Subresponsabilidad...">
+    <button type="button" class="remove-subresponsabilidad text-red-500 px-2">✕</button>
+  `;
+  container.appendChild(newSub);
+
+  newSub.querySelector('.remove-subresponsabilidad').addEventListener('click', function() {
+    newSub.remove();
+  });
+}
+
+// Handler para agregar responsabilidad principal
+document.getElementById('addResponsabilidad').addEventListener('click', () => {
+  const container = document.getElementById('responsabilidadesContainer');
+  const newResp = document.createElement('div');
+  newResp.className = 'responsabilidad-item flex flex-col gap-2 p-2 border rounded-xl bg-gray-50 mb-2';
+  newResp.innerHTML = `
+    <div class="flex gap-2">
+      <input type="text" class="responsabilidad-input flex-1 border rounded-xl p-3" 
+        placeholder="Ingrese responsabilidad principal...">
+      <button type="button" class="add-subresponsabilidad bg-blue-100 text-blue-700 rounded px-3 py-1 text-sm">
+        + Subresponsabilidad
+      </button>
+      <button type="button" class="remove-resp text-red-500 px-2">✕</button>
+    </div>
+    <div class="subresponsabilidades-container pl-8"></div>
+  `;
+  container.appendChild(newResp);
+
+  // Agregar subresponsabilidad
+  newResp.querySelector('.add-subresponsabilidad').addEventListener('click', function() {
+    const subContainer = newResp.querySelector('.subresponsabilidades-container');
+    addSubresponsabilidad(subContainer);
+  });
+
+  // Eliminar responsabilidad
+  newResp.querySelector('.remove-resp').addEventListener('click', function() {
+    newResp.remove();
+    updateRemoveButtons(container, '.responsabilidad-item', '.remove-resp');
+  });
+
+  updateRemoveButtons(container, '.responsabilidad-item', '.remove-resp');
+});
+
+// Handler para subresponsabilidad del primer ítem
+document.querySelectorAll('.add-subresponsabilidad').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const subContainer = this.closest('.responsabilidad-item').querySelector('.subresponsabilidades-container');
+    addSubresponsabilidad(subContainer);
+  });
+});
+    // MATERIALES
+    document.getElementById('addMaterial').addEventListener('click', () => {
+      const container = document.getElementById('materialesContainer');
+      const newMat = document.createElement('div');
+      newMat.className = 'material-item flex gap-2';
+      newMat.innerHTML = `
+        <input type="text" class="material-input flex-1 border rounded-xl p-3" 
+          placeholder="Ingrese material...">
+        <button type="button" class="remove-mat text-red-500 px-2">✕</button>
+      `;
+      container.appendChild(newMat);
+      
+      newMat.querySelector('.remove-mat').addEventListener('click', function() {
+        newMat.remove();
+        updateRemoveButtons(container, '.material-item', '.remove-mat');
+      });
+      
+      updateRemoveButtons(container, '.material-item', '.remove-mat');
+    });
+
+    // DESCRIPCIÓN DE ACTIVIDAD - Funciones mejoradas
+    let sectionCount = 1;
+
+    function addContentItem(container) {
+      const newContent = document.createElement('div');
+      newContent.className = 'content-item flex gap-2';
+      newContent.innerHTML = `
+        <textarea class="content-input flex-1 border rounded-xl p-2" rows="2"
+          placeholder="Contenido o punto de la sección"></textarea>
+        <button type="button" class="remove-content text-red-500 px-2">✕</button>
+      `;
+      container.appendChild(newContent);
+      
+      newContent.querySelector('.remove-content').addEventListener('click', function() {
+        newContent.remove();
+        updateRemoveButtons(container, '.content-item', '.remove-content');
+      });
+      
+      updateRemoveButtons(container, '.content-item', '.remove-content');
+    }
+
+    function addSubsection(parentSection) {
+      const subsectionsContainer = parentSection.querySelector('.subsections-container');
+      const newSubsection = document.createElement('div');
+      newSubsection.className = 'subsection border-l-2 border-gray-300 pl-4 mb-3';
+      newSubsection.innerHTML = `
+        <div class="flex gap-2 mb-2">
+          <input type="text" class="subsection-title flex-1 border rounded-xl p-2" 
+            placeholder="Título de la subsección">
+          <button type="button" class="remove-subsection text-red-500 px-2">✕</button>
+        </div>
+        <div class="subsection-content ml-8 space-y-2">
+          <div class="content-item flex gap-2">
+            <textarea class="content-input flex-1 border rounded-xl p-2" rows="2"
+              placeholder="Contenido de la subsección"></textarea>
+            <button type="button" class="remove-content text-red-500 px-2" style="display:none">✕</button>
+          </div>
+        </div>
+        <button type="button" class="add-subsection-content bg-blue-100 text-blue-700 rounded px-3 py-1 text-sm ml-8 mt-2">
+          + Agregar punto
+        </button>
+      `;
+      subsectionsContainer.appendChild(newSubsection);
+      
+      // Event listeners para la subsección
+      newSubsection.querySelector('.remove-subsection').addEventListener('click', function() {
+        newSubsection.remove();
+      });
+      
+      newSubsection.querySelector('.add-subsection-content').addEventListener('click', function() {
+        const contentContainer = newSubsection.querySelector('.subsection-content');
+        addContentItem(contentContainer);
+      });
+      
+      // Event listener para el primer content item
+      const firstRemoveBtn = newSubsection.querySelector('.remove-content');
+      if (firstRemoveBtn) {
+        firstRemoveBtn.addEventListener('click', function() {
+          this.closest('.content-item').remove();
+          updateRemoveButtons(newSubsection.querySelector('.subsection-content'), '.content-item', '.remove-content');
+        });
+      }
+    }
+
+    // Event listeners para la primera sección
+    document.querySelector('.add-content').addEventListener('click', function() {
+      const section = this.closest('.actividad-section');
+      const contentContainer = section.querySelector('.section-content');
+      addContentItem(contentContainer);
+    });
+
+    document.querySelector('.add-subsection').addEventListener('click', function() {
+      const section = this.closest('.actividad-section');
+      addSubsection(section);
+    });
+
+    // Agregar nueva sección principal
+    document.getElementById('addActividadSection').addEventListener('click', () => {
+      sectionCount++;
+      const container = document.getElementById('actividadContainer');
+      const newSection = document.createElement('div');
+      newSection.className = 'actividad-section border rounded-xl p-4';
+      newSection.setAttribute('data-section', sectionCount);
+      newSection.innerHTML = `
+        <div class="mb-3">
+          <input type="text" class="section-title w-full border rounded-xl p-2 font-semibold" 
+            placeholder="Título de la sección">
+        </div>
+        <div class="section-content ml-6 space-y-2">
+          <div class="content-item flex gap-2">
+            <textarea class="content-input flex-1 border rounded-xl p-2" rows="2"
+              placeholder="Contenido o punto de la sección"></textarea>
+            <button type="button" class="remove-content text-red-500 px-2" style="display:none">✕</button>
+          </div>
+        </div>
+        <div class="ml-6 mt-2 flex gap-2">
+          <button type="button" class="add-content bg-blue-100 text-blue-700 rounded px-3 py-1 text-sm">
+            + Agregar punto
+          </button>
+          <button type="button" class="add-subsection bg-green-100 text-green-700 rounded px-3 py-1 text-sm">
+            + Agregar subsección
+          </button>
+        </div>
+        <div class="subsections-container ml-6 mt-3 space-y-3"></div>
+        <button type="button" class="remove-section text-red-500 px-2 mt-2">✕ Eliminar sección</button>
+      `;
+      container.appendChild(newSection);
+      
+      // Event listeners para la nueva sección
+      newSection.querySelector('.add-content').addEventListener('click', function() {
+        const contentContainer = newSection.querySelector('.section-content');
+        addContentItem(contentContainer);
+      });
+      
+      newSection.querySelector('.add-subsection').addEventListener('click', function() {
+        addSubsection(newSection);
+      });
+      
+      newSection.querySelector('.remove-section').addEventListener('click', function() {
+        newSection.remove();
+        updateRemoveButtons(container, '.actividad-section', '.remove-section');
+      });
+      
+      updateRemoveButtons(container, '.actividad-section', '.remove-section');
+    });
+
+    // REGISTROS
+    document.getElementById('addRegistro').addEventListener('click', () => {
+      const container = document.getElementById('registrosContainer');
+      const newReg = document.createElement('div');
+      newReg.className = 'registro-item flex gap-2';
+      newReg.innerHTML = `
+        <input type="text" class="registro-input flex-1 border rounded-xl p-3" 
+          placeholder="Ingrese registro...">
+        <button type="button" class="remove-reg text-red-500 px-2">✕</button>
+      `;
+      container.appendChild(newReg);
+      
+      newReg.querySelector('.remove-reg').addEventListener('click', function() {
+        newReg.remove();
+        updateRemoveButtons(container, '.registro-item', '.remove-reg');
+      });
+      
+      updateRemoveButtons(container, '.registro-item', '.remove-reg');
+    });
+
+    // CONTROL DE CAMBIOS
+    document.getElementById('addCambio').addEventListener('click', () => {
+      const tbody = document.getElementById('cambiosTableBody');
+      const newRow = document.createElement('tr');
+      newRow.className = 'cambio-row';
+      newRow.innerHTML = `
+        <td class="border border-gray-300 p-2">
+          <input type="text" class="cambio-version w-full border-0 p-1" placeholder="02">
+        </td>
+        <td class="border border-gray-300 p-2">
+          <input type="date" class="cambio-fecha w-full border-0 p-1">
+        </td>
+        <td class="border border-gray-300 p-2">
+          <input type="text" class="cambio-descripcion w-full border-0 p-1" placeholder="Descripción">
+        </td>
+        <td class="border border-gray-300 p-2 text-center">
+          <button type="button" class="remove-cambio text-red-500">✕</button>
+        </td>
+      `;
+      tbody.appendChild(newRow);
+      
+      newRow.querySelector('.remove-cambio').addEventListener('click', function() {
+        newRow.remove();
+        updateRemoveButtons(tbody, '.cambio-row', '.remove-cambio');
+      });
+      
+      updateRemoveButtons(tbody, '.cambio-row', '.remove-cambio');
+    });
+
+    // SERIALIZACIÓN Y ENVÍO DEL FORMULARIO
+    document.getElementById('procedimientoForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Serializar Marco Teórico - SIN VIÑETAS
+      const marcoTeoricoItems = document.querySelectorAll('.marco-teorico-input');
+      const marcoTeoricoText = Array.from(marcoTeoricoItems)
+        .map((input) => input.value.trim())
+        .filter(text => text !== '')
+        .join('\n');
+      document.getElementById('marco_teorico_formatted').value = marcoTeoricoText;
+      
+      // Serializar Definiciones - SIN NÚMEROS
+      const defItems = document.querySelectorAll('.definicion-item');
+      const definicionesText = Array.from(defItems)
+        .map((item) => {
+          const termino = item.querySelector('.def-termino').value.trim();
+          const descripcion = item.querySelector('.def-descripcion').value.trim();
+          return termino && descripcion ? `${termino}: ${descripcion}` : '';
+        })
+        .filter(text => text !== '')
+        .join('\n');
+      document.getElementById('definiciones_formatted').value = definicionesText;
+      
+
+// Serializar RESPONSABILIDADES como array de objetos [{responsabilidad, subresponsabilidades:[]}]
+const responsabilidadItems = document.querySelectorAll('.responsabilidad-item');
+const responsabilidadesArray = Array.from(responsabilidadItems).map(item => {
+  const principal = item.querySelector('.responsabilidad-input').value.trim();
+  const subItems = item.querySelectorAll('.subresponsabilidad-input');
+  const subresponsabilidades = Array.from(subItems)
+    .map(sub => sub.value.trim())
+    .filter(text => text);
+  return principal ? { responsabilidad: principal, subresponsabilidades } : null;
+}).filter(obj => obj);
+
+document.getElementById('responsabilidades_formatted').value = JSON.stringify(responsabilidadesArray, null, 2);
+      
+      // Serializar Materiales - SIN VIÑETAS
+      const matItems = document.querySelectorAll('.material-input');
+      const materialesText = Array.from(matItems)
+        .map((input) => input.value.trim())
+        .filter(text => text !== '')
+        .join('\n');
+      document.getElementById('materiales_formatted').value = materialesText;
+      
+      // Serializar Descripción de Actividad - SIN NÚMEROS NI VIÑETAS
+
+      const actividadSections = document.querySelectorAll('.actividad-section');
+     let actividadText = '';
+     
+     actividadSections.forEach((section) => {
+       const sectionTitle = section.querySelector('.section-title').value.trim();
+       
+       if (sectionTitle) {
+         // Solo título, sin número
+         actividadText += `${sectionTitle}\n`;
+         
+         // Contenido principal de la sección sin viñetas
+         const contentItems = section.querySelector('.section-content').querySelectorAll('.content-input');
+         contentItems.forEach(content => {
+           const contentText = content.value.trim();
+           if (contentText) {
+             actividadText += `${contentText}\n`;
+           }
+         });
+         
+         // Subsecciones sin numeración
+         const subsections = section.querySelectorAll('.subsection');
+         subsections.forEach((subsection) => {
+           const subsectionTitle = subsection.querySelector('.subsection-title').value.trim();
+           if (subsectionTitle) {
+             actividadText += `\n${subsectionTitle}\n`;
+             
+             const subContentItems = subsection.querySelectorAll('.content-input');
+             subContentItems.forEach(subContent => {
+               const subContentText = subContent.value.trim();
+               if (subContentText) {
+                 actividadText += `${subContentText}\n`;
+               }
+             });
+           }
+         });
+         
+         actividadText += '\n';
+       }
+     });
+     
+     document.getElementById('descripcion_actividad_formatted').value = actividadText.trim();
+     
+     // Serializar Registros - SIN VIÑETAS
+     const regItems = document.querySelectorAll('.registro-input');
+     const registrosText = Array.from(regItems)
+       .map((input) => input.value.trim())
+       .filter(text => text !== '')
+       .join('\n');
+     document.getElementById('registros_formatted').value = registrosText;
+     
+     // Serializar Control de Cambios
+     const cambioRows = document.querySelectorAll('.cambio-row');
+     let cambiosText = 'Versión N°\tFecha modificación\tDescripción del Cambio\n';
+     cambiosText += '─────────────────────────────────────────────────────\n';
+     
+     cambioRows.forEach(row => {
+       const version = row.querySelector('.cambio-version').value.trim();
+       const fecha = row.querySelector('.cambio-fecha').value;
+       const descripcion = row.querySelector('.cambio-descripcion').value.trim();
+       
+       if (version && fecha && descripcion) {
+         const fechaFormatted = fecha ? new Date(fecha).toLocaleDateString('es-CL') : '';
+         cambiosText += `${version}\t${fechaFormatted}\t${descripcion}\n`;
+       }
+     });
+     
+     document.getElementById('control_cambios_formatted').value = cambiosText;
+     
+     // Crear objeto con todos los datos
+     const formData = new FormData(e.target);
+     const data = Object.fromEntries(formData);
+     
+     // Agregar metadatos útiles para n8n
+     data.documento_tipo = 'procedimiento_taller_redes';
+     data.fecha_envio = new Date().toISOString();
+     
+     // Log para debug (remover en producción)
+     console.log('Datos formateados para envío:', data);
+     
+     // Previsualización (opcional)
+     if (confirm('¿Desea ver una vista previa de los datos antes de enviar?')) {
+       showPreview(data);
+     } else {
+       sendData(data);
+     }
+   });
+   
+   // Función para mostrar vista previa
+   function showPreview(data) {
+     const previewHtml = `
+       <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+         <div class="bg-white rounded-xl p-6 max-w-4xl max-h-[90vh] overflow-y-auto">
+           <h3 class="text-xl font-bold mb-4">Vista Previa del Documento</h3>
+           <div class="space-y-3">
+             <div class="bg-blue-50 p-3 rounded"><strong>NOMBRE DEL PROTOCOLO:</strong> ${data.nombre_protocolo || 'No especificado'}</div>
+             <div><strong>Código:</strong> ${data.codigo}</div>
+             <div><strong>Versión:</strong> ${data.version}</div>
+             <div><strong>Fecha Creación:</strong> ${data.fecha_creacion}</div>
+             <div><strong>Fecha Modificación:</strong> ${data.fecha_modificacion}</div>
+             <hr>
+             <div><strong>1. OBJETIVO</strong><br><pre class="whitespace-pre-wrap">${data.objetivo}</pre></div>
+             <div><strong>2. ALCANCE</strong><br><pre class="whitespace-pre-wrap">${data.alcance}</pre></div>
+             <div><strong>3. MARCO TEÓRICO</strong><br><pre class="whitespace-pre-wrap">${data.marco_teorico}</pre></div>
+             <div><strong>4. DEFINICIONES</strong><br><pre class="whitespace-pre-wrap">${data.definiciones}</pre></div>
+             <div><strong>5. RESPONSABILIDADES</strong><br><pre class="whitespace-pre-wrap">${data.responsabilidades}</pre></div>
+             <div><strong>6. MATERIALES</strong><br><pre class="whitespace-pre-wrap">${data.materiales}</pre></div>
+             <div><strong>7. DESCRIPCIÓN DE LA ACTIVIDAD</strong><br><pre class="whitespace-pre-wrap">${data.descripcion_actividad}</pre></div>
+             <div><strong>8. REGISTROS</strong><br><pre class="whitespace-pre-wrap">${data.registros}</pre></div>
+             <div><strong>9. CONTROL DE CAMBIOS</strong><br><pre class="whitespace-pre-wrap">${data.control_cambios}</pre></div>
+             <hr>
+             <div class="grid grid-cols-3 gap-4 text-center">
+               <div>
+                 <strong>Elaboró:</strong><br>
+                 ${data.elaboro}<br>
+                 ${data.cargo_elaboro}
+               </div>
+               <div>
+                 <strong>Revisó:</strong><br>
+                 ${data.reviso}<br>
+                 ${data.cargo_reviso}
+               </div>
+               <div>
+                 <strong>Aprobó:</strong><br>
+                 ${data.aprobo}<br>
+                 ${data.cargo_aprobo}
+               </div>
+             </div>
+           </div>
+           <div class="mt-6 flex gap-3 justify-end">
+             <button onclick="closePreview()" class="px-4 py-2 bg-gray-200 rounded-xl">Cancelar</button>
+             <button onclick="confirmSend()" class="px-4 py-2 bg-blue-600 text-white rounded-xl">Enviar</button>
+           </div>
+         </div>
+       </div>
+     `;
+     
+     const previewDiv = document.createElement('div');
+     previewDiv.id = 'preview-modal';
+     previewDiv.innerHTML = previewHtml;
+     document.body.appendChild(previewDiv);
+     
+     // Guardar datos temporalmente
+     window.tempFormData = data;
+   }
+   
+   // Función para cerrar preview
+   window.closePreview = function() {
+     const preview = document.getElementById('preview-modal');
+     if (preview) preview.remove();
+   }
+   
+   // Función para confirmar envío
+   window.confirmSend = function() {
+     closePreview();
+     sendData(window.tempFormData);
+   }
+   
+   // Función para enviar datos
+   function sendData(data) {
+     // Mostrar indicador de carga
+     const submitBtn = document.querySelector('button[type="submit"]');
+     const originalText = submitBtn.textContent;
+     submitBtn.textContent = 'Enviando...';
+     submitBtn.disabled = true;
+     
+     // Enviar a n8n
+     fetch('https://n8n-render-9dxx.onrender.com/webhook-test/aec6ee18-fca8-401d-98ac-22677f5237f2', {
+       method: 'POST',
+       headers: { 
+         'Content-Type': 'application/json',
+         'Accept': 'application/json'
+       },
+       body: JSON.stringify(data)
+     })
+     .then(response => {
+       if (!response.ok) {
+         throw new Error(`HTTP error! status: ${response.status}`);
+       }
+       return response.json();
+     })
+     .then(result => {
+       // Éxito
+       alert('✅ Procedimiento enviado exitosamente');
+       
+       // Opcional: resetear formulario
+       if (confirm('¿Desea crear otro procedimiento?')) {
+         document.getElementById('procedimientoForm').reset();
+         // Resetear campos dinámicos a su estado inicial
+         resetDynamicFields();
+       }
+     })
+     .catch(error => {
+       console.error('Error al enviar:', error);
+       alert('❌ Error al enviar el formulario. Por favor, intente nuevamente.');
+     })
+     .finally(() => {
+       submitBtn.textContent = originalText;
+       submitBtn.disabled = false;
+     });
+   }
+   
+   // Función para resetear campos dinámicos
+   function resetDynamicFields() {
+     // Resetear todos los contenedores a un solo item inicial
+     const containers = [
+       { id: 'marcoTeoricoContainer', class: '.marco-teorico-item' },
+       { id: 'definicionesContainer', class: '.definicion-item' },
+       { id: 'responsabilidadesContainer', class: '.responsabilidad-item' },
+       { id: 'materialesContainer', class: '.material-item' },
+       { id: 'registrosContainer', class: '.registro-item' }
+     ];
+     
+     containers.forEach(({ id, class: itemClass }) => {
+       const container = document.getElementById(id);
+       const items = container.querySelectorAll(itemClass);
+       // Mantener solo el primer item
+       items.forEach((item, index) => {
+         if (index > 0) item.remove();
+       });
+     });
+     
+     // Resetear actividades
+     const actividadContainer = document.getElementById('actividadContainer');
+     const sections = actividadContainer.querySelectorAll('.actividad-section');
+     sections.forEach((section, index) => {
+       if (index > 0) section.remove();
+     });
+     sectionCount = 1;
+     
+     // Resetear tabla de cambios
+     const cambiosBody = document.getElementById('cambiosTableBody');
+     const rows = cambiosBody.querySelectorAll('.cambio-row');
+     rows.forEach((row, index) => {
+       if (index > 0) row.remove();
+     });
+   }
+   
+   // Validación adicional del código
+   document.getElementById('codigo').addEventListener('input', function(e) {
+     const value = e.target.value.toUpperCase();
+     e.target.value = value;
+     
+     // Validar formato XX-XX-XX
+     const isValid = /^[A-Z0-9]{0,2}-?[A-Z0-9]{0,2}-?[A-Z0-9]{0,2}$/.test(value);
+     if (!isValid && value.length > 0) {
+       e.target.setCustomValidity('El código debe tener el formato XX-XX-XX');
+     } else {
+       e.target.setCustomValidity('');
+     }
+   });
+ </script>
+</body>
+</html>
