@@ -17,9 +17,9 @@ class DataModel(BaseModel):
     alcance: str
     marco_teorico: str
     definiciones: str
-    responsabilidades: str
+    responsabilidades: str  # Texto plano con viñetas y subviñetas
     materiales: str
-    descripcion_actividad: str
+    descripcion_actividad: str  # Texto plano con viñetas y subviñetas
     registros: str
     control_cambios: str
     elaboro: str
