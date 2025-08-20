@@ -1,502 +1,524 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimización de la Gestión Hospitalaria - Hospital Puerto Montt</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .section-title {
-            border-left: 4px solid #0D9488; /* teal-600 */
-            padding-left: 1rem;
-        }
-        .card-icon {
-            background-color: #CCFBF1; /* teal-100 */
-            color: #115E59; /* teal-800 */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario Procedimiento - Taller de Redes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-50 text-slate-700">
+<body class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 p-6">
+  <div class="w-full max-w-4xl mx-auto p-8 rounded-3xl shadow-2xl bg-white">
+    <div class="mb-8">
+      <h2 class="text-3xl font-bold text-gray-800 text-center mb-2">Procedimiento de Taller de Redes</h2>
+      <p class="text-center text-gray-600">Redes y Buceo - Salmones Aysén</p>
+    </div>
 
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center space-x-4">
-                <svg class="h-10 w-10 text-teal-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
-                </svg>
-                <div>
-                    <h1 class="text-2xl font-bold text-slate-800">Optimización de la Gestión de Boxes</h1>
-                    <p class="text-sm text-slate-500">Hospital Puerto Montt - Análisis de Workflows para piloto CAE Infantil</p>
-                </div>
-            </div>
+    <form id="procedimientoForm" class="space-y-6">
+      
+      <!-- Titulo -->
+      <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+        <label for="titulo" class="text-gray-700 font-semibold text-sm">TÍTULO DEL PROTOCOLO</label>
+        <input id="titulo" name="titulo" type="text" required
+          placeholder="Ingrese el título del protocolo..."
+          class="border border-gray-300 rounded-xl p-3 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      
+      <!-- Información del documento -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl">
+        <div>
+          <label for="codigo" class="text-gray-700 font-semibold text-sm">Código</label>
+          <input id="codigo" name="codigo" type="text" required
+            placeholder="Ej: PRO-GD-001"
+            class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div>
+          <label for="fecha_creacion" class="text-gray-700 font-semibold text-sm">Fecha de Creación</label>
+          <input id="fecha_creacion" name="fecha_creacion" type="date" required
+            class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label for="version" class="text-gray-700 font-semibold text-sm">Versión</label>
+          <input id="version" name="version" type="text" required
+            placeholder="Ej: 2.0"
+            class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label for="fecha_modificacion" class="text-gray-700 font-semibold text-sm">Fecha de Modificación</label>
+          <input id="fecha_modificacion" name="fecha_modificacion" type="date" required
+            class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+      </div>
+
+      <!-- 1. OBJETIVO -->
+      <div>
+        <label for="objetivo" class="text-gray-700 font-semibold text-sm">1. OBJETIVO</label>
+        <textarea id="objetivo" name="objetivo" rows="4" required
+          placeholder="Ingrese el objetivo del procedimiento..."
+          class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      </div>
+
+      <!-- 2. ALCANCE -->
+      <div>
+        <label for="alcance" class="text-gray-700 font-semibold text-sm">2. ALCANCE</label>
+        <textarea id="alcance" name="alcance" rows="3" required
+          placeholder="Ingrese el alcance del procedimiento..."
+          class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      </div>
+
+      <!-- 3. MARCO TEÓRICO -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">3. MARCO TEÓRICO</label>
+        <div id="marcoTeoricoContainer" class="space-y-2">
+          <div class="marco-teorico-item flex gap-2">
+            <input type="text" class="marco-teorico-input flex-1 border rounded-xl p-3" 
+              placeholder="Ingrese texto del marco teórico...">
+            <button type="button" class="remove-btn text-red-500 px-2" style="display:none">✕</button>
+          </div>
+        </div>
+        <button type="button" id="addMarcoTeorico" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+          + Agregar Texto
+        </button>
+      </div>
+
+      <!-- 4. DEFINICIONES -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">4. DEFINICIONES</label>
+        <div id="definicionesContainer" class="space-y-2">
+          <div class="definicion-item flex gap-2">
+            <input type="text" class="def-termino border rounded-xl p-3 w-1/3" 
+              placeholder="Término">
+            <input type="text" class="def-descripcion border rounded-xl p-3 flex-1" 
+              placeholder="Descripción">
+            <button type="button" class="remove-def text-red-500 px-2" style="display:none">✕</button>
+          </div>
+        </div>
+        <button type="button" id="addDefinicion" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+          + Agregar Definición
+        </button>
+      </div>
+
+      <!-- 5. RESPONSABILIDADES (Jerárquico) -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">5. RESPONSABILIDADES</label>
+        <div id="responsabilidadesContainer" class="space-y-4">
+            <!-- Contenido dinámico -->
+        </div>
+        <button type="button" id="addResponsabilidadPrincipal" class="mt-2 bg-blue-100 text-blue-700 rounded-xl px-4 py-2 text-sm">
+            + Agregar Responsabilidad Principal
+        </button>
+      </div>
+
+      <!-- 6. MATERIALES -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">6. MATERIALES</label>
+        <div id="materialesContainer" class="space-y-2">
+          <div class="material-item flex gap-2">
+            <input type="text" class="material-input flex-1 border rounded-xl p-3" 
+              placeholder="Ingrese material...">
+            <button type="button" class="remove-mat text-red-500 px-2" style="display:none">✕</button>
+          </div>
+        </div>
+        <button type="button" id="addMaterial" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+          + Agregar Material
+        </button>
+      </div>
+
+      <!-- 7. DESCRIPCIÓN DE LA ACTIVIDAD (Jerárquico) -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">7. DESCRIPCIÓN DE LA ACTIVIDAD</label>
+        <div id="actividadContainer" class="space-y-4">
+            <!-- Contenido dinámico -->
+        </div>
+        <button type="button" id="addTitulo" class="mt-3 bg-blue-100 text-blue-700 rounded-xl px-4 py-2 text-sm">
+          + Agregar Título
+        </button>
+      </div>
+
+      <!-- 8. REGISTROS -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">8. REGISTROS</label>
+        <div id="registrosContainer" class="space-y-2">
+          <div class="registro-item flex gap-2">
+            <input type="text" class="registro-input flex-1 border rounded-xl p-3" 
+              placeholder="Ingrese registro...">
+            <button type="button" class="remove-reg text-red-500 px-2" style="display:none">✕</button>
+          </div>
+        </div>
+        <button type="button" id="addRegistro" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+          + Agregar Registro
+        </button>
+      </div>
+
+      <!-- 9. CONTROL DE CAMBIO -->
+      <div>
+        <label class="text-gray-700 font-semibold text-sm">9. CONTROL DE CAMBIO</label>
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse border border-gray-300 mt-2">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border border-gray-300 p-2 text-sm">Versión N°</th>
+                <th class="border border-gray-300 p-2 text-sm">Fecha modificación</th>
+                <th class="border border-gray-300 p-2 text-sm">Descripción del Cambio</th>
+                <th class="border border-gray-300 p-2 text-sm w-16"></th>
+              </tr>
+            </thead>
+            <tbody id="cambiosTableBody">
+              <tr class="cambio-row">
+                <td class="border border-gray-300 p-2">
+                  <input type="text" class="cambio-version w-full border-0 p-1" placeholder="1.0">
+                </td>
+                <td class="border border-gray-300 p-2">
+                  <input type="date" class="cambio-fecha w-full border-0 p-1">
+                </td>
+                <td class="border border-gray-300 p-2">
+                  <input type="text" class="cambio-descripcion w-full border-0 p-1" placeholder="Descripción del cambio">
+                </td>
+                <td class="border border-gray-300 p-2 text-center">
+                  <button type="button" class="remove-cambio text-red-500" style="display:none">✕</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" id="addCambio" class="mt-2 bg-gray-100 rounded-xl px-4 py-2 text-sm">
+            + Agregar Cambio
+          </button>
+        </div>
+      </div>
+
+      <!-- Firmas -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t pt-6">
+        <div class="text-center">
+          <label class="text-gray-700 font-semibold text-sm block mb-2">Elaboró</label>
+          <input name="elaboro" type="text" required
+            placeholder="Nombre y apellido"
+            class="border border-gray-300 rounded-xl p-2 w-full mb-2 text-center" />
+          <input name="cargo_elaboro" type="text" required
+            placeholder="Cargo"
+            class="border border-gray-300 rounded-xl p-2 w-full text-center" />
+        </div>
+
+        <div class="text-center">
+          <label class="text-gray-700 font-semibold text-sm block mb-2">Revisó</label>
+          <input name="reviso" type="text" required
+            placeholder="Nombre y apellido"
+            class="border border-gray-300 rounded-xl p-2 w-full mb-2 text-center" />
+          <input name="cargo_reviso" type="text" required
+            placeholder="Cargo"
+            class="border border-gray-300 rounded-xl p-2 w-full text-center" />
+        </div>
+
+        <div class="text-center">
+          <label class="text-gray-700 font-semibold text-sm block mb-2">Aprobó</label>
+          <input name="aprobo" type="text" required
+            placeholder="Nombre y apellido"
+            class="border border-gray-300 rounded-xl p-2 w-full mb-2 text-center" />
+          <input name="cargo_aprobo" type="text" required
+            placeholder="Cargo"
+            class="border border-gray-300 rounded-xl p-2 w-full text-center" />
+        </div>
+      </div>
+
+      <button type="submit" 
+        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 rounded-2xl hover:scale-105 transition-transform duration-300">
+        Enviar a n8n
+      </button>
+    </form>
+    
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- LÓGICA GENERAL PARA LISTAS DINÁMICAS ---
+        function setupDynamicList(addButtonId, containerId, itemClass, removeButtonClass, htmlContent, initialUpdate = true) {
+            document.getElementById(addButtonId).addEventListener('click', () => {
+                const container = document.getElementById(containerId);
+                const newItem = document.createElement('div');
+                newItem.className = itemClass;
+                newItem.innerHTML = htmlContent;
+                container.appendChild(newItem);
+
+                newItem.querySelector(removeButtonClass).addEventListener('click', function() {
+                    newItem.remove();
+                    if(initialUpdate) updateRemoveButtons(`#${containerId}`, `.${itemClass.split(' ')[0]}`, removeButtonClass);
+                });
+
+                if(initialUpdate) updateRemoveButtons(`#${containerId}`, `.${itemClass.split(' ')[0]}`, removeButtonClass);
+            });
+            if(initialUpdate) updateRemoveButtons(`#${containerId}`, `.${itemClass.split(' ')[0]}`, removeButtonClass);
+        }
+
+        function updateRemoveButtons(containerSelector, itemSelector, buttonSelector) {
+            const container = document.querySelector(containerSelector);
+            if (!container) return;
+            const items = container.querySelectorAll(itemSelector);
+            items.forEach((item) => {
+                const removeBtn = item.querySelector(buttonSelector);
+                if (removeBtn) {
+                    removeBtn.style.display = items.length > 1 ? 'inline-flex' : 'none';
+                }
+            });
+        }
+
+        // --- CONFIGURACIÓN DE LISTAS SIMPLES ---
+        setupDynamicList('addMarcoTeorico', 'marcoTeoricoContainer', 'marco-teorico-item flex gap-2 mt-2', '.remove-btn', `
+            <input type="text" class="marco-teorico-input flex-1 border rounded-xl p-3" placeholder="Ingrese texto del marco teórico...">
+            <button type="button" class="remove-btn text-red-500 px-2 items-center justify-center">✕</button>
+        `);
+        setupDynamicList('addDefinicion', 'definicionesContainer', 'definicion-item flex gap-2 mt-2', '.remove-def', `
+            <input type="text" class="def-termino border rounded-xl p-3 w-1/3" placeholder="Término">
+            <input type="text" class="def-descripcion border rounded-xl p-3 flex-1" placeholder="Descripción">
+            <button type="button" class="remove-def text-red-500 px-2 flex items-center justify-center">✕</button>
+        `);
+        setupDynamicList('addMaterial', 'materialesContainer', 'material-item flex gap-2 mt-2', '.remove-mat', `
+            <input type="text" class="material-input flex-1 border rounded-xl p-3" placeholder="Ingrese material...">
+            <button type="button" class="remove-mat text-red-500 px-2 flex items-center justify-center">✕</button>
+        `);
+        setupDynamicList('addRegistro', 'registrosContainer', 'registro-item flex gap-2 mt-2', '.remove-reg', `
+            <input type="text" class="registro-input flex-1 border rounded-xl p-3" placeholder="Ingrese registro...">
+            <button type="button" class="remove-reg text-red-500 px-2 flex items-center justify-center">✕</button>
+        `);
         
-        <!-- Introducción -->
-        <section class="mb-16">
-            <p class="text-justify text-lg text-slate-600 max-w-4xl mx-auto" style="text-align-last: justify;">
-                La gestión eficiente de los recursos hospitalarios es fundamental para garantizar una atención de calidad. A continuación, se presenta un análisis de los componentes del sistema automatizado diseñado para optimizar la administración de boxes en el CAE Infantil, evaluando su sinergia y potencial.
-            </p>
-        </section>
+        // --- LÓGICA PARA CONTROL DE CAMBIO (Tabla) ---
+        const cambiosTableBody = document.getElementById('cambiosTableBody');
+        document.getElementById('addCambio').addEventListener('click', () => {
+            const newRow = cambiosTableBody.insertRow();
+            newRow.className = 'cambio-row';
+            newRow.innerHTML = `
+                <td class="border border-gray-300 p-2"><input type="text" class="cambio-version w-full border-0 p-1" placeholder="1.1"></td>
+                <td class="border border-gray-300 p-2"><input type="date" class="cambio-fecha w-full border-0 p-1"></td>
+                <td class="border border-gray-300 p-2"><input type="text" class="cambio-descripcion w-full border-0 p-1" placeholder="Descripción del cambio"></td>
+                <td class="border border-gray-300 p-2 text-center"><button type="button" class="remove-cambio text-red-500">✕</button></td>
+            `;
+            updateRemoveButtons('#cambiosTableBody', '.cambio-row', '.remove-cambio');
+        });
 
-        <!-- Components Section -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-slate-800 mb-2 section-title">1. Componentes del Sistema automatizado</h2>
-            <p class="text-slate-600 mb-8 pl-5">Cada componente cumple un rol específico y complementario en el ecosistema de gestión.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        cambiosTableBody.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('remove-cambio')) {
+                e.target.closest('.cambio-row').remove();
+                updateRemoveButtons('#cambiosTableBody', '.cambio-row', '.remove-cambio');
+            }
+        });
+        updateRemoveButtons('#cambiosTableBody', '.cambio-row', '.remove-cambio');
+
+
+        // --- LÓGICA PARA RESPONSABILIDADES (Jerárquico) ---
+        const responsabilidadesContainer = document.getElementById('responsabilidadesContainer');
+        document.getElementById('addResponsabilidadPrincipal').addEventListener('click', () => {
+            const principalId = `resp-${Date.now()}`;
+            const newItem = document.createElement('div');
+            newItem.className = 'responsabilidad-principal-item bg-gray-50 border rounded-xl p-3';
+            newItem.innerHTML = `
+                <div class="flex gap-2 items-center">
+                    <span class="font-semibold text-gray-600">Principal:</span>
+                    <input type="text" class="responsabilidad-principal-texto flex-1 border rounded-xl p-2" placeholder="Texto de la responsabilidad principal...">
+                    <button type="button" class="add-subresponsabilidad bg-green-100 text-green-700 rounded px-3 py-1 text-xs">+ Sub</button>
+                    <button type="button" class="remove-principal text-red-500 px-2">✕</button>
+                </div>
+                <div id="${principalId}" class="sub-responsabilidades-container pl-8 mt-2 space-y-2"></div>
+            `;
+            responsabilidadesContainer.appendChild(newItem);
+
+            newItem.querySelector('.remove-principal').addEventListener('click', () => newItem.remove());
+
+            newItem.querySelector('.add-subresponsabilidad').addEventListener('click', () => {
+                const subContainer = newItem.querySelector('.sub-responsabilidades-container');
+                const subItem = document.createElement('div');
+                subItem.className = 'sub-responsabilidad-item flex gap-2 items-center';
+                subItem.innerHTML = `
+                    <span class="text-gray-500">Secundario:</span>
+                    <input type="text" class="sub-responsabilidad-texto flex-1 border rounded-xl p-2" placeholder="Texto de la sub-responsabilidad...">
+                    <button type="button" class="remove-sub text-red-500 px-2">✕</button>
+                `;
+                subContainer.appendChild(subItem);
+                subItem.querySelector('.remove-sub').addEventListener('click', () => subItem.remove());
+            });
+        });
+
+        // --- LÓGICA PARA ACTIVIDADES (Jerárquico) ---
+        const actividadContainer = document.getElementById('actividadContainer');
+        document.getElementById('addTitulo').addEventListener('click', () => {
+            const newTitulo = document.createElement('div');
+            newTitulo.className = 'titulo-item bg-gray-50 border rounded-xl p-4';
+            newTitulo.innerHTML = `
+                <div class="flex gap-2 items-center">
+                    <input type="text" class="actividad-texto-titulo flex-1 border rounded-xl p-2 font-semibold" placeholder="Texto del Título...">
+                    <button type="button" class="add-contenido bg-green-100 text-green-700 rounded px-3 py-1 text-xs">+ Contenido</button>
+                    <button type="button" class="remove-titulo text-red-500 px-2">✕</button>
+                </div>
+                <div class="contenidos-container pl-8 mt-2 space-y-3"></div>
+            `;
+            actividadContainer.appendChild(newTitulo);
+            newTitulo.querySelector('.remove-titulo').addEventListener('click', () => newTitulo.remove());
+
+            newTitulo.querySelector('.add-contenido').addEventListener('click', () => {
+                const contenidosContainer = newTitulo.querySelector('.contenidos-container');
+                const newContenido = document.createElement('div');
+                newContenido.className = 'contenido-item bg-white border rounded-lg p-3';
+                newContenido.innerHTML = `
+                    <div class="flex gap-2 items-center">
+                        <input type="text" class="actividad-texto-contenido flex-1 border rounded-xl p-2" placeholder="Texto del Contenido...">
+                        <button type="button" class="add-subcontenido bg-yellow-200 text-yellow-800 rounded px-3 py-1 text-xs">+ Sub</button>
+                        <button type="button" class="remove-contenido text-red-500 px-2">✕</button>
+                    </div>
+                    <div class="subcontenidos-container pl-8 mt-2 space-y-2"></div>
+                `;
+                contenidosContainer.appendChild(newContenido);
+                newContenido.querySelector('.remove-contenido').addEventListener('click', () => newContenido.remove());
+
+                newContenido.querySelector('.add-subcontenido').addEventListener('click', () => {
+                    const subcontenidosContainer = newContenido.querySelector('.subcontenidos-container');
+                    const newSubcontenido = document.createElement('div');
+                    newSubcontenido.className = 'subcontenido-item flex gap-2 items-center';
+                    newSubcontenido.innerHTML = `
+                        <input type="text" class="actividad-texto-subcontenido flex-1 border rounded-xl p-2" placeholder="Texto del Subcontenido...">
+                        <button type="button" class="remove-subcontenido text-red-500 px-2">✕</button>
+                    `;
+                    subcontenidosContainer.appendChild(newSubcontenido);
+                    newSubcontenido.querySelector('.remove-subcontenido').addEventListener('click', () => newSubcontenido.remove());
+                });
+            });
+        });
+
+        // --- PROCESAMIENTO Y ENVÍO DEL FORMULARIO (VERSIÓN CORREGIDA) ---
+        document.getElementById('procedimientoForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // 1. Aplanar las responsabilidades
+            const responsabilidadesAplanadas = [];
+            document.querySelectorAll('.responsabilidad-principal-item').forEach(item => {
+                const principalTexto = item.querySelector('.responsabilidad-principal-texto').value;
+                if (principalTexto) {
+                    responsabilidadesAplanadas.push({
+                        tipo: 'principal',
+                        texto: principalTexto
+                    });
+                }
+                item.querySelectorAll('.sub-responsabilidad-item').forEach(subItem => {
+                    const subTexto = subItem.querySelector('.sub-responsabilidad-texto').value;
+                    if (subTexto) {
+                        responsabilidadesAplanadas.push({
+                            tipo: 'secundaria',
+                            texto: subTexto
+                        });
+                    }
+                });
+            });
+
+            // 2. Aplanar la descripción de actividades y generar numeración de títulos
+            const actividadesAplanadas = [];
+            let tituloCounter = 1;
+            document.querySelectorAll('.titulo-item').forEach(tituloItem => {
+                const tituloTexto = tituloItem.querySelector('.actividad-texto-titulo').value;
+                if (tituloTexto) {
+                    actividadesAplanadas.push({
+                        tipo: 'titulo',
+                        numero_titulo: `7.${tituloCounter}`, // Genera la numeración aquí
+                        texto: tituloTexto
+                    });
+                    tituloCounter++;
+                }
+
+                tituloItem.querySelectorAll('.contenido-item').forEach(contenidoItem => {
+                    const contenidoTexto = contenidoItem.querySelector('.actividad-texto-contenido').value;
+                    if (contenidoTexto) {
+                        actividadesAplanadas.push({
+                            tipo: 'contenido',
+                            texto: contenidoTexto
+                        });
+                    }
+
+                    contenidoItem.querySelectorAll('.subcontenido-item').forEach(subItem => {
+                        const subcontenidoTexto = subItem.querySelector('.actividad-texto-subcontenido').value;
+                        if(subcontenidoTexto){
+                            actividadesAplanadas.push({
+                                tipo: 'subcontenido',
+                                texto: subcontenidoTexto
+                            });
+                        }
+                    });
+                });
+            });
+
+            // Construcción del JSON final
+            const finalJson = {
+                titulo: data.titulo,
+                codigo: data.codigo,
+                fecha_creacion: data.fecha_creacion,
+                version: data.version,
+                fecha_modificacion: data.fecha_modificacion,
+                elaboro: data.elaboro,
+                cargo_elaboro: data.cargo_elaboro,
+                reviso: data.reviso,
+                cargo_reviso: data.cargo_reviso,
+                aprobo: data.aprobo,
+                cargo_aprobo: data.cargo_aprobo,
+                objetivo: data.objetivo,
+                alcance: data.alcance,
                 
-                <!-- Card 1: Agente Asistencial -->
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <div class="p-3 rounded-full card-icon">
-                            <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold text-slate-800">Agente Asistencial</h3>
-                            <span class="text-sm font-medium text-teal-600">Gestión Operativa en Tiempo Real</span>
-                        </div>
-                    </div>
-                    <p class="text-slate-600 mb-4">Agente conversacional que interactúa con el personal clínico para administrar reservas de boxes del CAE Infantil.</p>
-                    <ul class="space-y-2 text-sm">
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Consultar Disponibilidad:</strong> Verifica horarios en Google Calendar.</li>
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Crear Citas:</strong> Agenda nuevas horas en los boxes.</li>
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Eliminar Citas:</strong> Cancela reservas existentes.</li>
-                    </ul>
-                </div>
-
-                <!-- Card 2: Estadística Automática -->
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <div class="p-3 rounded-full card-icon">
-                            <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold text-slate-800">Estadística Automática (en desarrollo)</h3>
-                            <span class="text-sm font-medium text-teal-600">Extracción y Consolidación de Datos</span>
-                        </div>
-                    </div>
-                    <p class="text-slate-600 mb-4">Proceso automático que crea un repositorio histórico y estructurado de toda la actividad de agendamiento de box.</p>
-                     <ul class="space-y-2 text-sm">
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Extracción Periódica</strong>
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Procesamiento:</strong> Estandariza la información de citas.</li>
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Carga de Datos:</strong> Actualiza la base de datos (Supabase).</li>
-                    </ul>
-                </div>
-
-                <!-- Card 3: Agente RAG -->
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <div class="p-3 rounded-full card-icon">
-                            <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.5m-5-1.5l1 1.5m-5-1.5l-1-1.5m5 1.5l1-1.5M9 18l-1 1.5m1-1.5l1 1.5m-2-3l-1.5-2.25a2.25 2.25 0 01.9-3.231l5.433-3.26a2.25 2.25 0 013.231.9l1.5 2.25m-5.63 3.53l-1.5-2.25m-5.63 3.53l-1.5-2.25m11.26 0l-1.5-2.25" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold text-slate-800">Agente RAG Analítico (en desarrollo)</h3>
-                            <span class="text-sm font-medium text-teal-600">Inteligencia Estratégica</span>
-                        </div>
-                    </div>
-                    <p class="text-slate-600 mb-4">Permitiría consultas en lenguaje natural sobre los datos históricos para obtener insights mediante preguntas directas.</p>
-                     <ul class="space-y-2 text-sm">
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Consultas Analíticas</strong>
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Generación de Estadística</strong>
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Identificación de Patrones</strong>
-                    </ul>
-                </div>
-
-                <!-- Card 4: Visualización con Grafana -->
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <div class="p-3 rounded-full card-icon">
-                            <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold text-slate-800">Visualización con Grafana</h3>
-                            <span class="text-sm font-medium text-teal-600">Dashboards Interactivos</span>
-                        </div>
-                    </div>
-                    <p class="text-slate-600 mb-4">Plataforma de visualización que se conecta a la base de datos (Supabase) para crear dashboards y gráficos en tiempo real.</p>
-                     <ul class="space-y-2 text-sm">
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Análisis de ocupación por box y por CAE.</strong></li>
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Métricas de rendimiento visuales.</strong></li>
-                        <li class="flex items-start"><span class="text-teal-500 mr-2">✓</span> <strong>Monitoreo de tendencias a lo largo del tiempo.</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Enlaces a Sistemas Section -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-slate-800 mb-2 section-title">Acceso a los Sistemas</h2>
-            <p class="text-slate-600 mb-8 pl-5">Explora las herramientas en funcionamiento y visualiza el potencial del sistema integrado.</p>
-            
-            <div class="bg-gradient-to-br from-teal-50 to-blue-50 p-8 rounded-xl shadow-lg border border-teal-100">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <!-- Agente Asistencial -->
-                    <a href="https://n8n-render-9dxx.onrender.com/workflow/EmCCOuTGUGw46Mlp" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       class="group bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-teal-400">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="p-2 bg-teal-100 rounded-lg group-hover:bg-teal-200 transition-colors">
-                                <svg class="h-6 w-6 text-teal-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <svg class="h-5 w-5 text-gray-400 group-hover:text-teal-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800 mb-2">Agente de Consultas CAE Infantil</h3>
-                        <p class="text-sm text-slate-600">Accede al workflow del agente conversacional para gestión de boxes en tiempo real.</p>
-                    </a>
-
-                    <!-- Grafana Dashboard -->
-                    <a href="https://miguelmoreiraampuero.grafana.net/d/8d1eab56-0dce-4a24-bd5d-adead0ae4279/caes?orgId=1&from=2025-07-01T04:00:00.000Z&to=2025-07-12T03:59:59.000Z&timezone=browser" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       class="group bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-teal-400">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="p-2 bg-teal-100 rounded-lg group-hover:bg-teal-200 transition-colors">
-                                <svg class="h-6 w-6 text-teal-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                                </svg>
-                            </div>
-                            <svg class="h-5 w-5 text-gray-400 group-hover:text-teal-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800 mb-2">Dashboard Grafana</h3>
-                        <p class="text-sm text-slate-600">Visualiza las métricas y estadísticas de ocupación de los CAEs en tiempo real.</p>
-                    </a>
-
-                    <!-- Supabase Database -->
-                    <a href="https://supabase.com/dashboard/project/sbbfledphnqlkzximptz/editor/80955?sort=event_id:asc&sort=start_time:asc&sort=summary:asc" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       class="group bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-teal-400">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="p-2 bg-teal-100 rounded-lg group-hover:bg-teal-200 transition-colors">
-                                <svg class="h-6 w-6 text-teal-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375" />
-                                </svg>
-                            </div>
-                            <svg class="h-5 w-5 text-gray-400 group-hover:text-teal-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800 mb-2">Base de Datos Supabase</h3>
-                        <p class="text-sm text-slate-600">Explora la estructura de datos y el repositorio histórico de agendamientos.</p>
-                    </a>
-
-                    <!-- Agente RAG -->
-                    <a href="https://n8n-render-9dxx.onrender.com/workflow/doL0L6ulphN5KV1B" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       class="group bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-teal-400">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="p-2 bg-teal-100 rounded-lg group-hover:bg-teal-200 transition-colors">
-                                <svg class="h-6 w-6 text-teal-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
-                                </svg>
-                            </div>
-                            <svg class="h-5 w-5 text-gray-400 group-hover:text-teal-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800 mb-2">Agente RAG Analítico</h3>
-                        <p class="text-sm text-slate-600">Revisa el workflow del agente de inteligencia artificial para consultas analíticas.</p>
-                    </a>
-                    
-                    <!-- Optimizador -->
-                    <a href="https://estebanampuero.github.io/cae/" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       class="group bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-teal-400">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="p-2 bg-teal-100 rounded-lg group-hover:bg-teal-200 transition-colors">
-                                <!-- Icono de Calendario -->
-                                <svg class="h-6 w-6 text-teal-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0h18" />
-                                </svg>
-                            </div>
-                            <svg class="h-5 w-5 text-gray-400 group-hover:text-teal-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800 mb-2">Optimizador de Agendamiento CAE</h3>
-                        <p class="text-sm text-slate-600">Herramienta para visualizar y optimizar la asignación de horas y boxes disponibles.</p>
-                    </a>
-                    
-                    <!-- Workflow Estadística -->
-                    <a href="https://n8n-render-9dxx.onrender.com/workflow/9d3kBOtjXIvmOUJH" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       class="group bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-teal-400">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="p-2 bg-teal-100 rounded-lg group-hover:bg-teal-200 transition-colors">
-                                <!-- Icono de Base de Datos -->
-                                <svg class="h-6 w-6 text-teal-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375" />
-                                </svg>
-                            </div>
-                            <svg class="h-5 w-5 text-gray-400 group-hover:text-teal-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800 mb-2">Workflow de Estadística Automática</h3>
-                        <p class="text-sm text-slate-600">Proceso que extrae, procesa y carga los datos de agendamiento en la base de datos.</p>
-                    </a>
-
-                </div>
+                marco_teorico: Array.from(document.querySelectorAll('.marco-teorico-input')).map(i => ({ texto: i.value })).filter(o => o.texto),
+                definiciones: Array.from(document.querySelectorAll('.definicion-item')).map(item => ({ termino: item.querySelector('.def-termino').value, descripcion: item.querySelector('.def-descripcion').value })).filter(o => o.termino && o.descripcion),
+                materiales: Array.from(document.querySelectorAll('.material-input')).map(i => ({ texto: i.value })).filter(o => o.texto),
+                registros: Array.from(document.querySelectorAll('.registro-input')).map(i => ({ texto: i.value })).filter(o => o.texto),
                 
-                <!-- Nota de acceso -->
-                <div class="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
-                    <div class="flex items-start">
-                        <svg class="h-5 w-5 text-amber-600 mt-0.5 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                        </svg>
-                        <p class="text-sm text-amber-800">
-                            <strong>Nota:</strong> Algunos enlaces pueden requerir credenciales de acceso. Para solicitar permisos de visualización, contacta al administrador del sistema.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                responsabilidades_lista: responsabilidadesAplanadas, // Usa la lista aplanada
+                descripcion_actividad_lista: actividadesAplanadas, // Usa la lista aplanada
+                
+                control_cambios: Array.from(document.querySelectorAll('.cambio-row')).map(row => ({
+                    version: row.querySelector('.cambio-version').value, // Corregido: 'version' en lugar de 'version_n'
+                    fecha_modificacion: row.querySelector('.cambio-fecha').value,
+                    descripcion_cambio: row.querySelector('.cambio-descripcion').value
+                })).filter(o => o.version && o.fecha_modificacion && o.descripcion_cambio)
+            };
 
-        <!-- Sinergia Section -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-slate-800 mb-2 section-title">2. Sinergia y Aporte a la Gestión</h2>
-             <p class="text-slate-600 mb-8 pl-5">Los componentes se complementan para crear un sistema de gestión integral, impactando los recursos físicos y humanos.</p>
-            <div class="bg-white p-8 rounded-xl shadow-md">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h4 class="text-lg font-semibold text-slate-800 mb-2">Gestión de Boxes (Recurso Físico)</h4>
-                        <p class="text-slate-600">El <strong>Agente Asistencial</strong> optimiza el uso diario. El <strong>Agente RAG</strong> y los dashboards de <strong>Grafana</strong> permiten un análisis a largo plazo para identificar patrones de uso, necesidades de equipamiento y planificar la distribución de espacios.</p>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-semibold text-slate-800 mb-2">Gestión del Recurso Humano</h4>
-                        <p class="text-slate-600">El <strong>Agente Asistencial</strong> optimiza las tareas administrativas del personal. Las herramientas de análisis (<strong>Agente RAG y Grafana</strong>) permitirían a la jefatura analizar la carga de trabajo, planificar turnos y evaluar el rendimiento.</p>
-                    </div>
-                </div>
-                <div class="mt-6 pt-6 border-t border-slate-200 text-center">
-                    <p class="text-md font-semibold text-teal-700">Eficiencia Operativa (día a día) + Inteligencia Estratégica (a futuro)</p>
-                </div>
-            </div>
-        </section>
- 
-        <!-- Análisis Comparativo Section -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-slate-800 mb-2 section-title">3. Análisis Comparativo de Sistemas de Consulta</h2>
-            <p class="text-slate-600 mb-8 pl-5">La elección del sistema de consulta depende del tipo de pregunta que se necesite responder.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="border border-slate-200 p-6 rounded-xl bg-white">
-                    <h4 class="text-lg font-semibold text-slate-800 mb-2">Consulta Directa (Agente Asistencial)</h4>
-                    <p class="text-sm text-slate-500 mb-4">Consulta los calendarios de Google en tiempo real.</p>
-                    <p class="font-medium text-blue-600 mb-2">Ideal para:</p>
-                    <p class="text-slate-600 mb-4">Preguntas operativas e inmediatas como "¿Está el Box 3 disponible a las 17:00?" o "Agenda una cita para el doctor X a las 15:00 hrs mañana".</p>
-                    <div class="bg-green-50 text-green-800 p-3 rounded-lg text-sm"><strong>Ventaja:</strong> Inmediatez (100% en vivo).</div>
-                    <div class="bg-red-50 text-red-800 p-3 rounded-lg text-sm mt-2"><strong>Desventaja:</strong> Ineficiente y no escalable para análisis históricos.</div>
-                </div>
-                <div class="border border-slate-200 p-6 rounded-xl bg-white">
-                    <h4 class="text-lg font-semibold text-slate-800 mb-2">Consulta a Base de Datos (Agente RAG en desarrollo y Grafana)</h4>
-                    <p class="text-sm text-slate-500 mb-4">Realiza consultas a la base de datos estructurada.</p>
-                    <p class="font-medium text-blue-600 mb-2">Ideal para:</p>
-                    <p class="text-slate-600 mb-4">Preguntas analíticas e históricas como "¿Cuál fue la tasa de ocupación la semana pasada?"</p>
-                    <div class="bg-green-50 text-green-800 p-3 rounded-lg text-sm"><strong>Ventaja:</strong> Eficiente y permite análisis profundos y visuales.</div>
-                    <div class="bg-red-50 text-red-800 p-3 rounded-lg text-sm mt-2"><strong>Desventaja:</strong> Pequeño desfase de datos (hasta 1 hora).</div>
-                </div>
-            </div>
-             <div class="mt-8 bg-teal-600 text-white p-6 rounded-xl text-center shadow-lg">
-                <h4 class="text-xl font-bold mb-2">Conclusión y Recomendación</h4>
-                <p>No se trata de elegir uno, sino de usar la herramienta correcta para cada tarea. El <strong>Agente Asistencial</strong> para la operación diaria y el <strong>Agente RAG / Grafana</strong> para la planificación estratégica.</p>
-            </div>
-        </section>
+            // Enviar datos a n8n
+            sendDataToN8n(finalJson);
+        });
 
-        <!-- Video Demo Section -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-slate-800 mb-2 section-title">Demostración del Sistema en Acción</h2>
-            <p class="text-slate-600 mb-8 pl-5">Visualiza cómo el agente asistencial interactúa con Slack y Google Calendar para gestionar las reservas de boxes en tiempo real.</p>
-            
-            <div class="max-w-5xl mx-auto">
-                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
-                    <div class="relative h-0 overflow-hidden rounded-lg" style="padding-bottom: 56.25%;">
-                        <iframe class="absolute top-0 left-0 w-full h-full" 
-                                src="https://www.youtube.com/embed/DyKbyxf3XX8" 
-                                title="Demostración del Agente de Agendamiento CAE"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Descripción del video -->
-            <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200 max-w-5xl mx-auto">
-                <h4 class="text-lg font-semibold text-slate-800 mb-2 flex items-center">
-                    <svg class="h-5 w-5 text-blue-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                    </svg>
-                    Flujo de Trabajo Demostrado
-                </h4>
-                <ul class="space-y-2 text-sm text-slate-700 list-inside">
-                    <li class="flex items-start">
-                        <span class="text-blue-500 font-bold mr-2">1.</span>
-                        <span><strong>Consulta en Slack:</strong> El personal médico solicita disponibilidad de boxes mediante un mensaje.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-blue-500 font-bold mr-2">2.</span>
-                        <span><strong>Procesamiento del Agente:</strong> El sistema interpreta la solicitud en lenguaje natural.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-blue-500 font-bold mr-2">3.</span>
-                        <span><strong>Consulta a Google Calendar:</strong> Verifica la disponibilidad en los calendarios correspondientes en tiempo real.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-blue-500 font-bold mr-2">4.</span>
-                        <span><strong>Respuesta y Agendamiento:</strong> El agente responde con los horarios disponibles y agenda la cita, actualizando el calendario automáticamente.</span>
-                    </li>
-                </ul>
-            </div>
-            
-            <!-- Beneficios destacados -->
-            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
-                <div class="text-center p-4 bg-teal-50 rounded-lg">
-                    <div class="text-xl font-bold text-teal-700">Mejora en tiempos de gestión</div>
-                </div>
-                <div class="text-center p-4 bg-teal-50 rounded-lg">
-                    <div class="text-xl font-bold text-teal-700">Disponibilidad del sistema 24/7</div>
-                </div>
-                <div class="text-center p-4 bg-teal-50 rounded-lg">
-                    <div class="text-xl font-bold text-teal-700">Fácilmente Escalable</div>
-                </div>
-            </div>
-        </section>
+        function sendDataToN8n(data) {
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
 
-        <!-- Sugerencias de Mejora Section -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-slate-800 mb-2 section-title">4. Próximos pasos</h2>
-            <p class="text-slate-600 mb-8 pl-5">Propuestas para maximizar el potencial del sistema integrado.</p>
-            <div class="space-y-6">
-                <div class="bg-white p-6 rounded-xl shadow-md flex items-start space-x-4">
-                    <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-indigo-100 rounded-full text-indigo-600 font-bold text-xl">
-                        <span>1</span>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-semibold text-slate-800">Unificación de la Interfaz</h4>
-                        <p class="text-slate-600">Integrar todos los CAE del Hospital Puerto Montt al sistema de reservas para gestionar de manera centralizada la disponibilidad de los boxes.</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md flex items-start space-x-4">
-                    <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-indigo-100 rounded-full text-indigo-600 font-bold text-xl">
-                        <span>2</span>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-semibold text-slate-800">Desarrollo del Agente RAG</h4>
-                        <p class="text-slate-600">Completar el desarrollo del agente RAG y optimizar Prompt para habilitar consultas estadísticas en lenguaje natural.</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md flex items-start space-x-4">
-                    <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-indigo-100 rounded-full text-indigo-600 font-bold text-xl">
-                        <span>3</span>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-semibold text-slate-800">Integrar más actores</h4>
-                        <p class="text-slate-600">Es fundamental la comunicación y transparencia con todo el personal involucrado para que las integraciones alivien los "pain points" reales de cada proceso.</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md flex items-start space-x-4">
-                    <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-indigo-100 rounded-full text-indigo-600 font-bold text-xl">
-                        <span>4</span>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-semibold text-slate-800">Optimizar la estructura de la base de datos de Supabase</h4>
-                        <p class="text-slate-600">Mejorar la automatización que almacena las bases de datos desde Google Calendar a Supabase.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
- 
-        <!-- LinkedIn Profile Card -->
-        <section class="mb-16">
-            <div class="max-w-3xl mx-auto">
-                <div class="bg-gradient-to-r from-teal-50 to-blue-50 p-8 rounded-xl shadow-lg border border-teal-100">
-                    <!-- INICIO: CÓDIGO MODIFICADO CON QR -->
-                    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-6">
-                        
-                        <!-- Profile Image -->
-                        <div class="flex-shrink-0">
-                            <div class="w-24 h-24 rounded-full overflow-hidden shadow-lg ring-4 ring-white">
-                                <img src="profile blanca.png" 
-                                     alt="Miguel Moreira Ampuero" 
-                                     class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                        
-                        <!-- Profile Info -->
-                        <div class="flex-grow text-center md:text-left">
-                            <h3 class="text-2xl font-bold text-slate-800 mb-1">Miguel Moreira Ampuero</h3>
-                            <p class="text-slate-600 mb-3">Founder of Yoinn | HealthTech & SportTech Entrepreneur</p>
-                            <p class="text-sm text-slate-500 mb-4">Automations | n8n | Medical Laboratory Technologist | Bilingual (ES–EN) | Passionate about sports, tech & innovation | Exploring AI to create real-world impact</p>
-                            
-                            <!-- LinkedIn Button -->
-                            <a href="https://www.linkedin.com/in/miguel-moreira-ampuero/" 
-                               target="_blank" 
-                               rel="noopener noreferrer"
-                               class="inline-flex items-center px-6 py-3 bg-[#0077B5] text-white font-medium rounded-lg hover:bg-[#006399] transition-colors duration-200 shadow-md hover:shadow-lg">
-                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                                </svg>
-                                Conectar en LinkedIn
-                            </a>
-                        </div>
-                        
-                        <!-- QR Code -->
-                        <div class="flex-shrink-0 hidden md:block">
-                            <div class="w-24 h-24 p-1 bg-white rounded-lg shadow-md ring-2 ring-white">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fmiguel-moreira-ampuero%2F&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR code for LinkedIn profile" class="w-full h-full object-contain" />
-                            </div>
-                        </div>
+            // REEMPLAZA ESTA URL CON TU WEBHOOK DE N8N
+            const webhookURL = 'https://n8n-render-9dxx.onrender.com/webhook-test/aec6ee18-fca8-401d-98ac-22677f5237f2';
 
-                    </div>
-                    <!-- FIN: CÓDIGO MODIFICADO CON QR -->
-                    
-                    <!-- Contact Info -->
-                    <div class="mt-6 pt-6 border-t border-teal-200">
-                        <p class="text-center text-sm text-slate-600">
-                            ¿Preguntas sobre la implementación? <span class="font-medium">Conversemos sobre cómo automatizar tus procesos.</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
- 
-    </main>
- 
-    <!-- Footer -->
-    <footer class="bg-white mt-16 border-t">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
-            <p>&copy; 2025 Hospital Puerto Montt. Sistema de Análisis de Gestión de Boxes.</p>
-        </div>
-    </footer>
- 
- </body>
- </html>
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error en la red: ${response.status} ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(result => {
+                alert('¡Éxito! Los datos han sido enviados a n8n.');
+                console.log('Respuesta de n8n:', result);
+                document.getElementById('procedimientoForm').reset();
+                // Opcional: limpiar todos los campos dinámicos
+            })
+            .catch(error => {
+                console.error('Error al enviar a n8n:', error);
+                alert(`Hubo un error al enviar los datos: ${error.message}`);
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        }
+    });
+ </script>
+</body>
+</html>
