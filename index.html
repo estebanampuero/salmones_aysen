@@ -232,7 +232,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-        // --- LÓGICA GENERAL PARA LISTAS DINÁMICAS ---
+        // --- LÓGICA GENERAL PARA LISTAS DINÁMICAS (sin cambios) ---
         function setupDynamicList(addButtonId, containerId, itemClass, removeButtonClass, htmlContent, initialUpdate = true) {
             document.getElementById(addButtonId).addEventListener('click', () => {
                 const container = document.getElementById(containerId);
@@ -263,7 +263,7 @@
             });
         }
 
-        // --- CONFIGURACIÓN DE LISTAS SIMPLES ---
+        // --- CONFIGURACIÓN DE LISTAS SIMPLES (sin cambios) ---
         setupDynamicList('addMarcoTeorico', 'marcoTeoricoContainer', 'marco-teorico-item flex gap-2 mt-2', '.remove-btn', `
             <input type="text" class="marco-teorico-input flex-1 border rounded-xl p-3" placeholder="Ingrese texto del marco teórico...">
             <button type="button" class="remove-btn text-red-500 px-2 items-center justify-center">✕</button>
@@ -282,7 +282,7 @@
             <button type="button" class="remove-reg text-red-500 px-2 flex items-center justify-center">✕</button>
         `);
         
-        // --- LÓGICA PARA CONTROL DE CAMBIO (Tabla) ---
+        // --- LÓGICA PARA CONTROL DE CAMBIO (sin cambios) ---
         const cambiosTableBody = document.getElementById('cambiosTableBody');
         document.getElementById('addCambio').addEventListener('click', () => {
             const newRow = cambiosTableBody.insertRow();
@@ -305,7 +305,7 @@
         updateRemoveButtons('#cambiosTableBody', '.cambio-row', '.remove-cambio');
 
 
-        // --- LÓGICA PARA RESPONSABILIDADES (Jerárquico) ---
+        // --- LÓGICA PARA RESPONSABILIDADES (sin cambios) ---
         const responsabilidadesContainer = document.getElementById('responsabilidadesContainer');
         document.getElementById('addResponsabilidadPrincipal').addEventListener('click', () => {
             const principalId = `resp-${Date.now()}`;
@@ -338,7 +338,7 @@
             });
         });
 
-        // --- LÓGICA PARA ACTIVIDADES (Jerárquico) ---
+        // --- LÓGICA PARA ACTIVIDADES (sin cambios) ---
         const actividadContainer = document.getElementById('actividadContainer');
         document.getElementById('addTitulo').addEventListener('click', () => {
             const newTitulo = document.createElement('div');
@@ -383,14 +383,16 @@
             });
         });
 
-        // --- PROCESAMIENTO Y ENVÍO DEL FORMULARIO (VERSIÓN CORREGIDA) ---
+        // ==============================================================================
+        // === INICIO: BLOQUE DE CÓDIGO MODIFICADO PARA GENERAR JSON PLANO (OPCIÓN 1) ===
+        // ==============================================================================
         document.getElementById('procedimientoForm').addEventListener('submit', (e) => {
             e.preventDefault();
             
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
 
-            // 1. Aplanar las responsabilidades
+            // 1. Aplanar las responsabilidades en una sola lista
             const responsabilidadesAplanadas = [];
             document.querySelectorAll('.responsabilidad-principal-item').forEach(item => {
                 const principalTexto = item.querySelector('.responsabilidad-principal-texto').value;
@@ -404,49 +406,39 @@
                     const subTexto = subItem.querySelector('.sub-responsabilidad-texto').value;
                     if (subTexto) {
                         responsabilidadesAplanadas.push({
-                            tipo: 'secundaria',
+                            tipo: 'secundario', // Usa el 'tipo' que tu plantilla espera
                             texto: subTexto
                         });
                     }
                 });
             });
 
-            // 2. Aplanar la descripción de actividades y generar numeración de títulos
+            // 2. Aplanar la descripción de actividades en una sola lista
             const actividadesAplanadas = [];
-            let tituloCounter = 1;
             document.querySelectorAll('.titulo-item').forEach(tituloItem => {
                 const tituloTexto = tituloItem.querySelector('.actividad-texto-titulo').value;
                 if (tituloTexto) {
                     actividadesAplanadas.push({
                         tipo: 'titulo',
-                        numero_titulo: `7.${tituloCounter}`, // Genera la numeración aquí
-                        texto: tituloTexto
+                        texto: tituloTexto,
+                        numero_titulo: '' // Asegúrate de que los campos coincidan con tu plantilla
                     });
-                    tituloCounter++;
                 }
-
                 tituloItem.querySelectorAll('.contenido-item').forEach(contenidoItem => {
                     const contenidoTexto = contenidoItem.querySelector('.actividad-texto-contenido').value;
                     if (contenidoTexto) {
-                        actividadesAplanadas.push({
-                            tipo: 'contenido',
-                            texto: contenidoTexto
-                        });
+                        actividadesAplanadas.push({ tipo: 'contenido', texto: contenidoTexto });
                     }
-
                     contenidoItem.querySelectorAll('.subcontenido-item').forEach(subItem => {
                         const subcontenidoTexto = subItem.querySelector('.actividad-texto-subcontenido').value;
                         if(subcontenidoTexto){
-                            actividadesAplanadas.push({
-                                tipo: 'subcontenido',
-                                texto: subcontenidoTexto
-                            });
+                            actividadesAplanadas.push({ tipo: 'subcontenido', texto: subcontenidoTexto });
                         }
                     });
                 });
             });
 
-            // Construcción del JSON final
+            // Construcción del JSON final con las listas aplanadas
             const finalJson = {
                 titulo: data.titulo,
                 codigo: data.codigo,
@@ -471,15 +463,19 @@
                 descripcion_actividad_lista: actividadesAplanadas, // Usa la lista aplanada
                 
                 control_cambios: Array.from(document.querySelectorAll('.cambio-row')).map(row => ({
-                    version: row.querySelector('.cambio-version').value, // Corregido: 'version' en lugar de 'version_n'
+                    version_n: row.querySelector('.cambio-version').value,
                     fecha_modificacion: row.querySelector('.cambio-fecha').value,
                     descripcion_cambio: row.querySelector('.cambio-descripcion').value
-                })).filter(o => o.version && o.fecha_modificacion && o.descripcion_cambio)
+                })).filter(o => o.version_n && o.fecha_modificacion && o.descripcion_cambio)
             };
 
+            console.log("JSON plano generado:", JSON.stringify(finalJson, null, 2));
             // Enviar datos a n8n
             sendDataToN8n(finalJson);
         });
+        // ==============================================================================
+        // === FIN: BLOQUE DE CÓDIGO MODIFICADO ===
+        // ==============================================================================
 
         function sendDataToN8n(data) {
             const submitBtn = document.querySelector('button[type="submit"]');
@@ -488,7 +484,7 @@
             submitBtn.disabled = true;
 
             // REEMPLAZA ESTA URL CON TU WEBHOOK DE N8N
-            const webhookURL = 'https://n8n-render-9dxx.onrender.com/webhook/aec6ee18-fca8-401d-98ac-22677f5237f2';
+            const webhookURL = 'https://n8n-render-9dxx.onrender.com/webhook-test/aec6ee18-fca8-401d-98ac-22677f5237f2';
 
             fetch(webhookURL, {
                 method: 'POST',
@@ -506,8 +502,6 @@
             .then(result => {
                 alert('¡Éxito! Los datos han sido enviados a n8n.');
                 console.log('Respuesta de n8n:', result);
-                document.getElementById('procedimientoForm').reset();
-                // Opcional: limpiar todos los campos dinámicos
             })
             .catch(error => {
                 console.error('Error al enviar a n8n:', error);
