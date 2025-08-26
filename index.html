@@ -463,7 +463,7 @@
                 descripcion_actividad_lista: actividadesAplanadas, // Usa la lista aplanada
                 
                 control_cambios: Array.from(document.querySelectorAll('.cambio-row')).map(row => ({
-                    version_n: row.querySelector('.cambio-version').value,
+                    version: row.querySelector('.cambio-version').value,
                     fecha_modificacion: row.querySelector('.cambio-fecha').value,
                     descripcion_cambio: row.querySelector('.cambio-descripcion').value
                 })).filter(o => o.version_n && o.fecha_modificacion && o.descripcion_cambio)
