@@ -3,24 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Formulario Procedimiento - Taller de Redes</title>
+  <title>Sistema creación de documentos Salmones Aysen</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 p-6">
   <div class="w-full max-w-4xl mx-auto p-8 rounded-3xl shadow-2xl bg-white">
     <div class="mb-8">
-      <h2 class="text-3xl font-bold text-gray-800 text-center mb-2">Procedimiento de Taller de Redes</h2>
-      <p class="text-center text-gray-600">Redes y Buceo - Salmones Aysén</p>
+      <h2 class="text-3xl font-bold text-gray-800 text-center mb-2">Sistema creación de documentos Salmones Aysen</h2>
+      <p class="text-center text-gray-600">Oficina Calidad - Salmones Aysén</p>
     </div>
 
     <form id="procedimientoForm" class="space-y-6">
       
       <!-- Titulo -->
       <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
-        <label for="titulo" class="text-gray-700 font-semibold text-sm">TÍTULO DEL PROTOCOLO</label>
-        <input id="titulo" name="titulo" type="text" required
-          placeholder="Ingrese el título del protocolo..."
-          class="border border-gray-300 rounded-xl p-3 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <label class="text-gray-700 font-semibold text-sm">TÍTULO DEL PROTOCOLO</label>
+        <div class="flex flex-col gap-4 mt-2">
+            <div>
+                <input id="titulo1" name="titulo1" type="text" required
+                  placeholder="Ingrese la primera parte del título..."
+                  class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+                <input id="titulo2" name="titulo2" type="text"
+                  placeholder="Ingrese la segunda parte del título (opcional)..."
+                  class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+        </div>
       </div>
       
       <!-- Información del documento -->
@@ -31,7 +40,7 @@
             placeholder="Ej: PRO-GD-001"
             class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
-
+        
         <div>
           <label for="fecha_creacion" class="text-gray-700 font-semibold text-sm">Fecha de Creación</label>
           <input id="fecha_creacion" name="fecha_creacion" type="date" required
@@ -44,13 +53,14 @@
             placeholder="Ej: 2.0"
             class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
-
+        
         <div>
-          <label for="fecha_modificacion" class="text-gray-700 font-semibold text-sm">Fecha de Modificación</label>
-          <input id="fecha_modificacion" name="fecha_modificacion" type="date" required
-            class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <label for="fecha_modificacion" class="text-gray-700 font-semibold text-sm">Fecha de Modificación</label>
+            <input id="fecha_modificacion" name="fecha_modificacion" type="date" required
+              class="border border-gray-300 rounded-xl p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
       </div>
+
 
       <!-- 1. OBJETIVO -->
       <div>
@@ -133,7 +143,7 @@
             <!-- Contenido dinámico -->
         </div>
         <button type="button" id="addTitulo" class="mt-3 bg-blue-100 text-blue-700 rounded-xl px-4 py-2 text-sm">
-          + Agregar Título
+          + Agregar Elemento
         </button>
       </div>
 
@@ -223,7 +233,7 @@
 
       <button type="submit" 
         class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 rounded-2xl hover:scale-105 transition-transform duration-300">
-        Enviar a n8n
+        Enviar
       </button>
     </form>
     
@@ -232,7 +242,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-        // --- LÓGICA GENERAL PARA LISTAS DINÁMICAS (sin cambios) ---
         function setupDynamicList(addButtonId, containerId, itemClass, removeButtonClass, htmlContent, initialUpdate = true) {
             document.getElementById(addButtonId).addEventListener('click', () => {
                 const container = document.getElementById(containerId);
@@ -263,7 +272,6 @@
             });
         }
 
-        // --- CONFIGURACIÓN DE LISTAS SIMPLES (sin cambios) ---
         setupDynamicList('addMarcoTeorico', 'marcoTeoricoContainer', 'marco-teorico-item flex gap-2 mt-2', '.remove-btn', `
             <input type="text" class="marco-teorico-input flex-1 border rounded-xl p-3" placeholder="Ingrese texto del marco teórico...">
             <button type="button" class="remove-btn text-red-500 px-2 items-center justify-center">✕</button>
@@ -282,7 +290,6 @@
             <button type="button" class="remove-reg text-red-500 px-2 flex items-center justify-center">✕</button>
         `);
         
-        // --- LÓGICA PARA CONTROL DE CAMBIO (sin cambios) ---
         const cambiosTableBody = document.getElementById('cambiosTableBody');
         document.getElementById('addCambio').addEventListener('click', () => {
             const newRow = cambiosTableBody.insertRow();
@@ -304,8 +311,6 @@
         });
         updateRemoveButtons('#cambiosTableBody', '.cambio-row', '.remove-cambio');
 
-
-        // --- LÓGICA PARA RESPONSABILIDADES (sin cambios) ---
         const responsabilidadesContainer = document.getElementById('responsabilidadesContainer');
         document.getElementById('addResponsabilidadPrincipal').addEventListener('click', () => {
             const principalId = `resp-${Date.now()}`;
@@ -338,113 +343,125 @@
             });
         });
 
-        // --- LÓGICA PARA ACTIVIDADES (sin cambios) ---
+        // ====================================================================================
+        // === INICIO: LÓGICA MEJORADA PARA "DESCRIPCIÓN DE LA ACTIVIDAD" CON SANGRÍA ===
+        // ====================================================================================
         const actividadContainer = document.getElementById('actividadContainer');
         document.getElementById('addTitulo').addEventListener('click', () => {
-            const newTitulo = document.createElement('div');
-            newTitulo.className = 'titulo-item bg-gray-50 border rounded-xl p-4';
-            newTitulo.innerHTML = `
+            const newElement = document.createElement('div');
+            newElement.className = 'actividad-item bg-gray-50 border rounded-xl p-3';
+            // --- MODIFICADO: Se añade el dropdown de Sangría ---
+            newElement.innerHTML = `
                 <div class="flex gap-2 items-center">
-                    <input type="text" class="actividad-texto-titulo flex-1 border rounded-xl p-2 font-semibold" placeholder="Texto del Título...">
-                    <button type="button" class="add-contenido bg-green-100 text-green-700 rounded px-3 py-1 text-xs">+ Contenido</button>
-                    <button type="button" class="remove-titulo text-red-500 px-2">✕</button>
+                    <select class="actividad-estilo border-gray-300 rounded-lg text-sm w-48">
+                        <option value="titulo">Título (7.x)</option>
+                        <option value="subtitulo">Sub-título (7.x.x)</option>
+                        <option value="guion">Viñeta (-)</option>
+                        <option value="check">Check (✓)</option>
+                        <option value="normal" selected>Párrafo</option>
+                    </select>
+                    <select class="actividad-sangria border-gray-300 rounded-lg text-sm w-32">
+                        <option value="0">Sin Sangría</option>
+                        <option value="1">Sangría 1</option>
+                        <option value="2">Sangría 2</option>
+                        <option value="3">Sangría 3</option>
+                    </select>
+                    <input type="text" class="actividad-texto flex-1 border rounded-xl p-2" placeholder="Escriba el texto aquí...">
+                    <button type="button" class="remove-actividad text-red-500 px-2">✕</button>
                 </div>
-                <div class="contenidos-container pl-8 mt-2 space-y-3"></div>
             `;
-            actividadContainer.appendChild(newTitulo);
-            newTitulo.querySelector('.remove-titulo').addEventListener('click', () => newTitulo.remove());
-
-            newTitulo.querySelector('.add-contenido').addEventListener('click', () => {
-                const contenidosContainer = newTitulo.querySelector('.contenidos-container');
-                const newContenido = document.createElement('div');
-                newContenido.className = 'contenido-item bg-white border rounded-lg p-3';
-                newContenido.innerHTML = `
-                    <div class="flex gap-2 items-center">
-                        <input type="text" class="actividad-texto-contenido flex-1 border rounded-xl p-2" placeholder="Texto del Contenido...">
-                        <button type="button" class="add-subcontenido bg-yellow-200 text-yellow-800 rounded px-3 py-1 text-xs">+ Sub</button>
-                        <button type="button" class="remove-contenido text-red-500 px-2">✕</button>
-                    </div>
-                    <div class="subcontenidos-container pl-8 mt-2 space-y-2"></div>
-                `;
-                contenidosContainer.appendChild(newContenido);
-                newContenido.querySelector('.remove-contenido').addEventListener('click', () => newContenido.remove());
-
-                newContenido.querySelector('.add-subcontenido').addEventListener('click', () => {
-                    const subcontenidosContainer = newContenido.querySelector('.subcontenidos-container');
-                    const newSubcontenido = document.createElement('div');
-                    newSubcontenido.className = 'subcontenido-item flex gap-2 items-center';
-                    newSubcontenido.innerHTML = `
-                        <input type="text" class="actividad-texto-subcontenido flex-1 border rounded-xl p-2" placeholder="Texto del Subcontenido...">
-                        <button type="button" class="remove-subcontenido text-red-500 px-2">✕</button>
-                    `;
-                    subcontenidosContainer.appendChild(newSubcontenido);
-                    newSubcontenido.querySelector('.remove-subcontenido').addEventListener('click', () => newSubcontenido.remove());
-                });
-            });
+            actividadContainer.appendChild(newElement);
+            newElement.querySelector('.remove-actividad').addEventListener('click', () => newElement.remove());
         });
 
-        // ==============================================================================
-        // === INICIO: BLOQUE DE CÓDIGO MODIFICADO PARA GENERAR JSON PLANO (OPCIÓN 1) ===
-        // ==============================================================================
         document.getElementById('procedimientoForm').addEventListener('submit', (e) => {
             e.preventDefault();
             
+            function formatYyyyMmDdToDdMmYyyy(dateString) {
+                if (!dateString) return '';
+                const [year, month, day] = dateString.split('-');
+                return `${day}-${month}-${year}`;
+            }
+
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
 
-            // 1. Aplanar las responsabilidades en una sola lista
             const responsabilidadesAplanadas = [];
             document.querySelectorAll('.responsabilidad-principal-item').forEach(item => {
                 const principalTexto = item.querySelector('.responsabilidad-principal-texto').value;
                 if (principalTexto) {
-                    responsabilidadesAplanadas.push({
-                        tipo: 'principal',
-                        texto: principalTexto
-                    });
+                    responsabilidadesAplanadas.push({ tipo: 'principal', texto: principalTexto });
                 }
                 item.querySelectorAll('.sub-responsabilidad-item').forEach(subItem => {
                     const subTexto = subItem.querySelector('.sub-responsabilidad-texto').value;
                     if (subTexto) {
-                        responsabilidadesAplanadas.push({
-                            tipo: 'secundario', // Usa el 'tipo' que tu plantilla espera
-                            texto: subTexto
-                        });
+                        responsabilidadesAplanadas.push({ tipo: 'secundario', texto: subTexto });
                     }
                 });
             });
 
-            // 2. Aplanar la descripción de actividades en una sola lista
             const actividadesAplanadas = [];
-            document.querySelectorAll('.titulo-item').forEach(tituloItem => {
-                const tituloTexto = tituloItem.querySelector('.actividad-texto-titulo').value;
-                if (tituloTexto) {
-                    actividadesAplanadas.push({
-                        tipo: 'titulo',
-                        texto: tituloTexto,
-                        numero_titulo: '' // Asegúrate de que los campos coincidan con tu plantilla
-                    });
-                }
-                tituloItem.querySelectorAll('.contenido-item').forEach(contenidoItem => {
-                    const contenidoTexto = contenidoItem.querySelector('.actividad-texto-contenido').value;
-                    if (contenidoTexto) {
-                        actividadesAplanadas.push({ tipo: 'contenido', texto: contenidoTexto });
-                    }
-                    contenidoItem.querySelectorAll('.subcontenido-item').forEach(subItem => {
-                        const subcontenidoTexto = subItem.querySelector('.actividad-texto-subcontenido').value;
-                        if(subcontenidoTexto){
-                            actividadesAplanadas.push({ tipo: 'subcontenido', texto: subcontenidoTexto });
-                        }
-                    });
-                });
-            });
+            let tituloCounter = 1;
+            let subTituloCounter = 1;
+            let lastTituloNum = '';
 
-            // Construcción del JSON final con las listas aplanadas
+            document.querySelectorAll('.actividad-item').forEach(item => {
+                const estilo = item.querySelector('.actividad-estilo').value;
+                const sangria = item.querySelector('.actividad-sangria').value;
+                const texto = item.querySelector('.actividad-texto').value;
+                
+                if (!texto) return;
+
+                let sangriaPrefix = '';
+                // Se traduce el nivel de sangría a caracteres de tabulación
+                switch (sangria) {
+                    case '1': sangriaPrefix = '\t'; break;
+                    case '2': sangriaPrefix = '\t\t'; break;
+                    case '3': sangriaPrefix = '\t\t\t'; break;
+                }
+
+                let textoFinal = texto;
+                switch (estilo) {
+                    case 'titulo':
+                        lastTituloNum = `7.${tituloCounter}`;
+                        textoFinal = `${lastTituloNum} ${texto}`;
+                        tituloCounter++;
+                        subTituloCounter = 1; 
+                        break;
+                    case 'subtitulo':
+                        if (lastTituloNum) {
+                            textoFinal = `${lastTituloNum}.${subTituloCounter} ${texto}`;
+                            subTituloCounter++;
+                        } else {
+                            textoFinal = `\t- ${texto}`;
+                        }
+                        break;
+                    case 'guion':
+                        textoFinal = `- ${texto}`;
+                        break;
+                    case 'check':
+                        textoFinal = `✓ ${texto}`;
+                        break;
+                    case 'normal':
+                    default:
+                        textoFinal = texto;
+                        break;
+                }
+                
+                // Se añade la sangría al principio del texto ya formateado
+                actividadesAplanadas.push({ texto: sangriaPrefix + textoFinal });
+            });
+            // ====================================================================================
+            // === FIN: LÓGICA MEJORADA ===
+            // ====================================================================================
+
             const finalJson = {
-                titulo: data.titulo,
+                titulo1: data.titulo1 || '',
+                titulo2: data.titulo2 || '',
                 codigo: data.codigo,
-                fecha_creacion: data.fecha_creacion,
+                fecha_creacion: formatYyyyMmDdToDdMmYyyy(data.fecha_creacion),
                 version: data.version,
-                fecha_modificacion: data.fecha_modificacion,
+                fecha_modificacion: formatYyyyMmDdToDdMmYyyy(data.fecha_modificacion),
                 elaboro: data.elaboro,
                 cargo_elaboro: data.cargo_elaboro,
                 reviso: data.reviso,
@@ -459,23 +476,19 @@
                 materiales: Array.from(document.querySelectorAll('.material-input')).map(i => ({ texto: i.value })).filter(o => o.texto),
                 registros: Array.from(document.querySelectorAll('.registro-input')).map(i => ({ texto: i.value })).filter(o => o.texto),
                 
-                responsabilidades_lista: responsabilidadesAplanadas, // Usa la lista aplanada
-                descripcion_actividad_lista: actividadesAplanadas, // Usa la lista aplanada
+                responsabilidades_lista: responsabilidadesAplanadas,
+                descripcion_actividad_lista: actividadesAplanadas,
                 
                 control_cambios: Array.from(document.querySelectorAll('.cambio-row')).map(row => ({
                     version: row.querySelector('.cambio-version').value,
-                    fecha_modificacion: row.querySelector('.cambio-fecha').value,
+                    fecha_modificacion: formatYyyyMmDdToDdMmYyyy(row.querySelector('.cambio-fecha').value), 
                     descripcion_cambio: row.querySelector('.cambio-descripcion').value
                 })).filter(o => o.version && o.fecha_modificacion && o.descripcion_cambio)
             };
 
             console.log("JSON plano generado:", JSON.stringify(finalJson, null, 2));
-            // Enviar datos a n8n
             sendDataToN8n(finalJson);
         });
-        // ==============================================================================
-        // === FIN: BLOQUE DE CÓDIGO MODIFICADO ===
-        // ==============================================================================
 
         function sendDataToN8n(data) {
             const submitBtn = document.querySelector('button[type="submit"]');
@@ -483,7 +496,6 @@
             submitBtn.textContent = 'Enviando...';
             submitBtn.disabled = true;
 
-            // REEMPLAZA ESTA URL CON TU WEBHOOK DE N8N
             const webhookURL = 'https://agentes-liw-n8n.6tpykr.easypanel.host/webhook-test/aec6ee18-fca8-401d-98ac-22677f5237f2';
 
             fetch(webhookURL, {
