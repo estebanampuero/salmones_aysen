@@ -138,7 +138,12 @@
 
       <!-- 7. DESCRIPCIÓN DE LA ACTIVIDAD (Jerárquico) -->
       <div>
-        <label class="text-gray-700 font-semibold text-sm">7. DESCRIPCIÓN DE LA ACTIVIDAD</label>
+        <!-- INICIO: CAMBIO REALIZADO -->
+        <div class="flex items-center gap-2 mb-2">
+          <label class="text-gray-700 font-semibold text-sm">7. DESCRIPCIÓN DE LA ACTIVIDAD</label>
+          <span id="sangriaHelpIcon" class="cursor-pointer bg-blue-100 text-blue-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold hover:bg-blue-200 transition-colors">?</span>
+        </div>
+        <!-- FIN: CAMBIO REALIZADO -->
         <div id="actividadContainer" class="space-y-4">
             <!-- Contenido dinámico -->
         </div>
@@ -240,6 +245,29 @@
     </form>
     
   </div>
+
+  <!-- INICIO: CÓDIGO AÑADIDO - MODAL DE AYUDA -->
+  <div id="sangriaHelpModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden transition-opacity duration-300 opacity-0">
+    <div class="bg-white rounded-2xl shadow-xl p-6 max-w-sm mx-auto transform transition-all duration-300 scale-95">
+        <h3 class="text-lg font-bold text-gray-800 mb-3">¿Para qué sirve la Sangría?</h3>
+        <p class="text-gray-600 text-sm">
+            La opción de "Sangría" te permite anidar visualmente los elementos de la descripción.
+            <br><br>
+            Cada nivel de sangría empuja el texto más hacia la derecha, creando una estructura jerárquica clara. Es útil para listar sub-pasos o notas debajo de un punto principal.
+            <br><br>
+            <strong>Ejemplo:</strong>
+            <ul class="list-disc pl-5 mt-2 text-xs bg-gray-50 p-2 rounded-lg">
+                <li>Punto Principal (Sin Sangría)</li>
+                <li class="ml-4">Sub-punto (Sangría 1)</li>
+                <li class="ml-8">Sub-sub-punto (Sangría 2)</li>
+            </ul>
+        </p>
+        <div class="text-right mt-4">
+            <button id="closeHelpModal" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700">Entendido</button>
+        </div>
+    </div>
+  </div>
+  <!-- FIN: CÓDIGO AÑADIDO -->
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -526,6 +554,39 @@
                 submitBtn.disabled = false;
             });
         }
+        
+        // --- INICIO: CÓDIGO AÑADIDO - Lógica para el modal de ayuda de sangría ---
+        const sangriaHelpIcon = document.getElementById('sangriaHelpIcon');
+        const sangriaHelpModal = document.getElementById('sangriaHelpModal');
+        const modalContent = sangriaHelpModal.querySelector('div');
+        const closeHelpModal = document.getElementById('closeHelpModal');
+
+        sangriaHelpIcon.addEventListener('click', () => {
+            sangriaHelpModal.classList.remove('hidden');
+            // Pequeña animación de entrada
+            setTimeout(() => { 
+              sangriaHelpModal.classList.remove('opacity-0');
+              modalContent.classList.remove('scale-95');
+            }, 10);
+        });
+
+        const closeModal = () => {
+            sangriaHelpModal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => { 
+              sangriaHelpModal.classList.add('hidden');
+            }, 300); // Coincide con la duración de la transición
+        };
+
+        closeHelpModal.addEventListener('click', closeModal);
+
+        // Clic en el fondo para cerrar
+        sangriaHelpModal.addEventListener('click', (e) => {
+            if (e.target === sangriaHelpModal) {
+                closeModal();
+            }
+        });
+        // --- FIN: CÓDIGO AÑADIDO ---
     });
  </script>
 </body>
