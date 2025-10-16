@@ -437,10 +437,16 @@
                 });
             });
 
+            // ====================================================================================
+            // === INICIO: LÓGICA MODIFICADA PARA AÑADIR ESPACIOS DIRECTAMENTE AL TEXTO ===
+            // ====================================================================================
             const actividadesAplanadas = [];
             let tituloCounter = 1;
             let subTituloCounter = 1;
             let lastTituloNum = '';
+
+            // Define cuántos espacios usar por cada nivel de sangría.
+            const ESPACIOS_POR_NIVEL = '    '; // 4 espacios
 
             document.querySelectorAll('.actividad-item-container').forEach(item => {
                 const estilo = item.querySelector('.actividad-estilo').value;
@@ -449,43 +455,52 @@
                 
                 if (!texto) return;
 
-                let nivelSangria = 0;
-                if (sangriaValue === 'pl-6') nivelSangria = 1;
-                if (sangriaValue === 'pl-12') nivelSangria = 2;
-                if (sangriaValue === 'pl-16') nivelSangria = 3;
+                // 1. Crear el prefijo de espacios basado en la selección de sangría.
+                let sangriaPrefijo = '';
+                if (sangriaValue === 'pl-6') {
+                    sangriaPrefijo = ESPACIOS_POR_NIVEL; // Sangría 1
+                } else if (sangriaValue === 'pl-12') {
+                    sangriaPrefijo = ESPACIOS_POR_NIVEL.repeat(2); // Sangría 2
+                } else if (sangriaValue === 'pl-16') {
+                    sangriaPrefijo = ESPACIOS_POR_NIVEL.repeat(3); // Sangría 3
+                }
 
-                let textoFinal = texto;
+                // 2. Aplicar el estilo de viñeta o numeración al texto.
+                let textoConEstilo = texto;
                 switch (estilo) {
                     case 'titulo':
                         lastTituloNum = `7.${tituloCounter}`;
-                        textoFinal = `${lastTituloNum} ${texto}`;
+                        textoConEstilo = `${lastTituloNum} ${texto}`;
                         tituloCounter++;
                         subTituloCounter = 1; 
                         break;
                     case 'subtitulo':
                         if (lastTituloNum) {
-                            textoFinal = `${lastTituloNum}.${subTituloCounter} ${texto}`;
+                            textoConEstilo = `${lastTituloNum}.${subTituloCounter} ${texto}`;
                             subTituloCounter++;
                         } else {
-                            textoFinal = `- ${texto}`;
+                            textoConEstilo = `- ${texto}`;
                         }
                         break;
                     case 'guion':
-                        textoFinal = `- ${texto}`;
+                        textoConEstilo = `- ${texto}`;
                         break;
                     case 'check':
-                        textoFinal = `✓ ${texto}`;
+                        textoConEstilo = `✓ ${texto}`;
                         break;
                     case 'normal':
                     default:
-                        // No se añade prefijo
+                        // No se añade prefijo de estilo
                         break;
                 }
                 
-                actividadesAplanadas.push({ texto: textoFinal, sangria: nivelSangria });
+                // 3. Unir el prefijo de sangría con el texto ya formateado.
+                actividadesAplanadas.push({ 
+                    texto: sangriaPrefijo + textoConEstilo 
+                });
             });
             // ====================================================================================
-            // === FIN: LÓGICA MEJORADA ===
+            // === FIN: LÓGICA MODIFICADA ===
             // ====================================================================================
 
             const finalJson = {
