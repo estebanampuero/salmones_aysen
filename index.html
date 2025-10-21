@@ -374,7 +374,7 @@
         const actividadContainer = document.getElementById('actividadContainer');
         document.getElementById('addTitulo').addEventListener('click', () => {
             const newElement = document.createElement('div');
-            newElement.className = 'actividad-item-container'; // Contenedor principal del item
+            newElement.className = 'actividad-item-container'; 
 
             newElement.innerHTML = `
                 <div class="actividad-item bg-gray-50 border rounded-xl p-3 flex gap-2 items-center transition-all duration-300">
@@ -391,9 +391,7 @@
                         <option value="pl-12">Sangría 2</option>
                         <option value="pl-16">Sangría 3</option>
                     </select>
-                    <!-- ===================== CAMBIO 1: DE INPUT A TEXTAREA ===================== -->
                     <textarea class="actividad-texto flex-1 border rounded-xl p-2" rows="1" placeholder="Escriba el texto aquí..."></textarea>
-                    <!-- ===================== FIN DEL CAMBIO 1 ===================== -->
                     <button type="button" class="remove-actividad text-red-500 px-2">✕</button>
                 </div>
             `;
@@ -402,11 +400,8 @@
             const itemDiv = newElement.querySelector('.actividad-item');
             const sangriaSelect = newElement.querySelector('.actividad-sangria');
 
-            // Event listener para cambiar la clase de sangría dinámicamente
             sangriaSelect.addEventListener('change', (e) => {
-                // Se remueven clases de padding anteriores para evitar conflictos
                 itemDiv.classList.remove('pl-0', 'pl-6', 'pl-12', 'pl-16');
-                // Se añade la nueva clase seleccionada para efecto visual inmediato
                 itemDiv.classList.add(e.target.value);
             });
 
@@ -440,7 +435,7 @@
             });
 
             // ====================================================================================
-            // === INICIO: LÓGICA MODIFICADA PARA AÑADIR ESPACIOS DIRECTAMENTE AL TEXTO ===
+            // === INICIO: LÓGICA DE PROCESAMIENTO DE ACTIVIDAD CON SANGRÍA COLGANTE (HANGING INDENT) ===
             // ====================================================================================
             const actividadesAplanadas = [];
             let tituloCounter = 1;
@@ -454,57 +449,61 @@
                 
                 if (!texto) return;
 
-                // 1. Crear el prefijo de espacios basado en la selección de sangría.
-                let sangriaPrefijo = '';
+                // --- 1. Calcular la sangría ESTRUCTURAL (el empuje de todo el bloque) ---
+                let sangriaEstructural = '';
                 if (sangriaValue === 'pl-6') { 
-                    sangriaPrefijo = '    '; 
+                    sangriaEstructural = '  '; // 2 espacios
                 } else if (sangriaValue === 'pl-12') { 
-                    sangriaPrefijo = '          ';
+                    sangriaEstructural = '    '; // 4 espacios
                 } else if (sangriaValue === 'pl-16') { 
-                    sangriaPrefijo = '                        ';
+                    sangriaEstructural = '      '; // 6 espacios
                 }
 
-                // 2. Aplicar el estilo de viñeta o numeración al texto.
-                let textoConEstilo = texto;
+                // --- 2. Determinar el PREFIJO DE ESTILO (el símbolo y su espaciado) ---
+                let prefijoDeEstilo = '';
                 switch (estilo) {
                     case 'titulo':
                         lastTituloNum = `7.${tituloCounter}`;
-                        textoConEstilo = `${lastTituloNum}      ${texto}`; // Espacio hardcodeado
+                        prefijoDeEstilo = `${lastTituloNum} `;
                         tituloCounter++;
                         subTituloCounter = 1; 
                         break;
                     case 'subtitulo':
                         if (lastTituloNum) {
-                            textoConEstilo = `${lastTituloNum}.${subTituloCounter} ${texto}`;
+                            prefijoDeEstilo = `${lastTituloNum}.${subTituloCounter} `;
                             subTituloCounter++;
                         } else {
-                            textoConEstilo = `- ${texto}`;
+                           prefijoDeEstilo = `- `; // Fallback si no hay título padre
                         }
                         break;
                     case 'guion':
-                        textoConEstilo = `- ${texto}`;
+                        prefijoDeEstilo = `- `;
                         break;
                     case 'check':
-                        textoConEstilo = `✓ ${texto}`;
+                        prefijoDeEstilo = `✓ `;
                         break;
                     case 'normal':
                     default:
-                        // No se añade prefijo de estilo
+                        prefijoDeEstilo = ''; // Párrafo normal no tiene prefijo
                         break;
                 }
                 
-                // ===================== CAMBIO 2: LÓGICA DE SANGRÍA MULTI-LÍNEA =====================
-                // Reemplaza cada salto de línea (\n) con un salto de línea seguido del prefijo de sangría.
-                const textoConEstiloMultiLinea = textoConEstilo.replace(/\n/g, '\n' + sangriaPrefijo);
-                // ===================== FIN DEL CAMBIO 2 =====================
+                // --- 3. Calcular la SANGRÍA PARA LÍNEAS SIGUIENTES (para alinear el texto) ---
+                // Es la sangría estructural + espacios vacíos del tamaño del prefijo de estilo
+                const sangriaParaSaltoDeLinea = sangriaEstructural + ' '.repeat(prefijoDeEstilo.length);
+
+                // --- 4. Aplicar la sangría a las líneas subsiguientes del texto ---
+                const textoConSangriaColgante = texto.replace(/\n/g, '\n' + sangriaParaSaltoDeLinea);
                 
-                // 3. Unir el prefijo de sangría de la PRIMERA LÍNEA con el texto ya formateado para múltiples líneas.
+                // --- 5. Construir el texto final ---
+                const textoFinal = sangriaEstructural + prefijoDeEstilo + textoConSangriaColgante;
+                
                 actividadesAplanadas.push({ 
-                    texto: sangriaPrefijo + textoConEstiloMultiLinea 
+                    texto: textoFinal
                 });
             });
             // ====================================================================================
-            // === FIN: LÓGICA MODIFICADA ===
+            // === FIN: LÓGICA DE PROCESAMIENTO DE ACTIVIDAD ===
             // ====================================================================================
 
             const finalJson = {
