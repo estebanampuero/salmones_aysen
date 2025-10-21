@@ -452,11 +452,11 @@
                 // --- 1. Calcular la sangría ESTRUCTURAL (el empuje de todo el bloque) ---
                 let sangriaEstructural = '';
                 if (sangriaValue === 'pl-6') { 
-                    sangriaEstructural = '  '; // 2 espacios
+                    sangriaEstructural = '         '; // 2 espacios
                 } else if (sangriaValue === 'pl-12') { 
-                    sangriaEstructural = '    '; // 4 espacios
+                    sangriaEstructural = '            '; // 4 espacios
                 } else if (sangriaValue === 'pl-16') { 
-                    sangriaEstructural = '      '; // 6 espacios
+                    sangriaEstructural = '                     '; // 6 espacios
                 }
 
                 // --- 2. Determinar el PREFIJO DE ESTILO (el símbolo y su espaciado) ---
@@ -473,11 +473,11 @@
                             prefijoDeEstilo = `${lastTituloNum}.${subTituloCounter} `;
                             subTituloCounter++;
                         } else {
-                           prefijoDeEstilo = `- `; // Fallback si no hay título padre
+                           prefijoDeEstilo = `-    `; // Fallback si no hay título padre
                         }
                         break;
                     case 'guion':
-                        prefijoDeEstilo = `- `;
+                        prefijoDeEstilo = `-    `;
                         break;
                     case 'check':
                         prefijoDeEstilo = `✓ `;
