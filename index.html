@@ -15,6 +15,14 @@
 
     <form id="procedimientoForm" class="space-y-6">
       
+      <!-- Email Usuario -->
+      <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+        <label for="email_usuario" class="text-gray-700 font-semibold text-sm">EMAIL DEL USUARIO (PARA NOTIFICACIÓN)</label>
+        <input id="email_usuario" name="email_usuario" type="email" required
+          placeholder="Ingrese su email para recibir el documento generado..."
+          class="border border-gray-300 rounded-xl p-3 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+      </div>
+
       <!-- Titulo -->
       <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
         <label class="text-gray-700 font-semibold text-sm">TÍTULO DEL DOCUMENTO</label>
@@ -345,15 +353,11 @@
             });
         });
 
-        // =========================================================================
-        // === INICIO: LÓGICA MODIFICADA PARA "DESCRIPCIÓN DE LA ACTIVIDAD"      ===
-        // =========================================================================
         const actividadContainer = document.getElementById('actividadContainer');
         document.getElementById('addTitulo').addEventListener('click', () => {
             const newElement = document.createElement('div');
             newElement.className = 'actividad-item-container'; 
 
-            // SE ELIMINÓ EL SELECTOR DE SANGRÍA
             newElement.innerHTML = `
                 <div class="actividad-item bg-gray-50 border rounded-xl p-3 flex gap-2 items-center">
                     <select class="actividad-estilo border-gray-300 rounded-lg text-sm w-48">
@@ -369,7 +373,6 @@
             `;
             actividadContainer.appendChild(newElement);
             
-            // SE ELIMINÓ LA LÓGICA DEL EVENT LISTENER PARA LA SANGRÍA
             newElement.querySelector('.remove-actividad').addEventListener('click', () => newElement.remove());
         });
 
@@ -399,9 +402,6 @@
                 });
             });
 
-            // =========================================================================
-            // === INICIO: LÓGICA DE PROCESAMIENTO DE ACTIVIDAD (SIN SANGRÍA)        ===
-            // =========================================================================
             const actividadesAplanadas = [];
             let tituloCounter = 1;
             let subTituloCounter = 1;
@@ -412,12 +412,10 @@
                 const texto = item.querySelector('.actividad-texto').value;
                 
                 if (!texto) return;
-
-                // --- 1. Lógica de sangría estructural eliminada ---
+                
                 const sangriaEstructural = '';
-
-                // --- 2. Determinar el PREFIJO DE ESTILO (el símbolo y su espaciado) ---
                 let prefijoDeEstilo = '';
+
                 switch (estilo) {
                     case 'titulo':
                         lastTituloNum = `7.${tituloCounter}`;
@@ -430,11 +428,10 @@
                             prefijoDeEstilo = `${lastTituloNum}.${subTituloCounter} `;
                             subTituloCounter++;
                         } else {
-                           prefijoDeEstilo = `- `; // Fallback si no hay título padre
+                           prefijoDeEstilo = `- `;
                         }
                         break;
                     case 'guion':
-                        // SE ELIMINÓ EL ESPACIADO EXTRA
                         prefijoDeEstilo = `- `;
                         break;
                     case 'check':
@@ -442,26 +439,18 @@
                         break;
                     case 'normal':
                     default:
-                        prefijoDeEstilo = ''; // Párrafo normal no tiene prefijo
+                        prefijoDeEstilo = '';
                         break;
                 }
                 
-                // --- 3. Calcular la SANGRÍA PARA LÍNEAS SIGUIENTES (para alinear el texto) ---
                 const sangriaParaSaltoDeLinea = sangriaEstructural + ' '.repeat(prefijoDeEstilo.length);
-
-                // --- 4. Aplicar la sangría a las líneas subsiguientes del texto ---
                 const textoConSangriaColgante = texto.replace(/\n/g, '\n' + sangriaParaSaltoDeLinea);
-                
-                // --- 5. Construir el texto final ---
                 const textoFinal = sangriaEstructural + prefijoDeEstilo + textoConSangriaColgante;
                 
                 actividadesAplanadas.push({ 
                     texto: textoFinal
                 });
             });
-            // =========================================================================
-            // === FIN: LÓGICA DE PROCESAMIENTO DE ACTIVIDAD ===
-            // =========================================================================
 
             const finalJson = {
                 titulo1: data.titulo1 || '',
@@ -504,7 +493,12 @@
             submitBtn.textContent = 'Enviando...';
             submitBtn.disabled = true;
 
-            const webhookURL = 'https://agentes-liw-n8n.6tpykr.easypanel.host/webhook/aec6ee18-fca8-401d-98ac-22677f5237f2';
+            // 1. Obtenemos el email del nuevo campo
+            const emailUsuario = document.getElementById('email_usuario').value;
+
+            // 2. Construimos la URL del webhook con el email como parámetro de consulta
+            const baseWebhookURL = 'https://agentes-liw-n8n.6tpykr.easypanel.host/webhook/aec6ee18-fca8-401d-98ac-22677f5237f2';
+            const webhookURL = `${baseWebhookURL}?email=${encodeURIComponent(emailUsuario)}`;
 
             fetch(webhookURL, {
                 method: 'POST',
@@ -532,9 +526,6 @@
                 submitBtn.disabled = false;
             });
         }
-        
-        // --- SE ELIMINÓ TODA LA LÓGICA PARA EL MODAL DE AYUDA ---
-
     });
  </script>
 </body>
