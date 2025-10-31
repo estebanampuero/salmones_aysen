@@ -243,7 +243,7 @@
 
       <button type="submit" 
         class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 rounded-2xl hover:scale-105 transition-transform duration-300">
-        Enviar
+        Generar Documento
       </button>
     </form>
     
@@ -259,12 +259,10 @@
                 newItem.className = itemClass;
                 newItem.innerHTML = htmlContent;
                 container.appendChild(newItem);
-
                 newItem.querySelector(removeButtonClass).addEventListener('click', function() {
                     newItem.remove();
                     if(initialUpdate) updateRemoveButtons(`#${containerId}`, `.${itemClass.split(' ')[0]}`, removeButtonClass);
                 });
-
                 if(initialUpdate) updateRemoveButtons(`#${containerId}`, `.${itemClass.split(' ')[0]}`, removeButtonClass);
             });
             if(initialUpdate) updateRemoveButtons(`#${containerId}`, `.${itemClass.split(' ')[0]}`, removeButtonClass);
@@ -336,9 +334,7 @@
                 <div id="${principalId}" class="sub-responsabilidades-container pl-8 mt-2 space-y-2"></div>
             `;
             responsabilidadesContainer.appendChild(newItem);
-
             newItem.querySelector('.remove-principal').addEventListener('click', () => newItem.remove());
-
             newItem.querySelector('.add-subresponsabilidad').addEventListener('click', () => {
                 const subContainer = newItem.querySelector('.sub-responsabilidades-container');
                 const subItem = document.createElement('div');
@@ -357,22 +353,20 @@
         document.getElementById('addTitulo').addEventListener('click', () => {
             const newElement = document.createElement('div');
             newElement.className = 'actividad-item-container'; 
-
             newElement.innerHTML = `
                 <div class="actividad-item bg-gray-50 border rounded-xl p-3 flex gap-2 items-center">
                     <select class="actividad-estilo border-gray-300 rounded-lg text-sm w-48">
-                        <option value="titulo">Título (7.x)</option>
-                        <option value="subtitulo">Sub-título (7.x.x)</option>
-                        <option value="guion">Viñeta (-)</option>
-                        <option value="check">Check (✓)</option>
                         <option value="normal" selected>Párrafo</option>
+                        <option value="titulo">Nivel 1 (7.x)</option>
+                        <option value="subtitulo">Nivel 2 (7.x.x)</option>
+                        <option value="guion">Nivel 3 (7.x.x.x)</option>
+                        <option value="check">Nivel 4 (7.x.x.x.x)</option>
                     </select>
                     <textarea class="actividad-texto flex-1 border rounded-xl p-2" rows="1" placeholder="Escriba el texto aquí..."></textarea>
                     <button type="button" class="remove-actividad text-red-500 px-2">✕</button>
                 </div>
             `;
             actividadContainer.appendChild(newElement);
-            
             newElement.querySelector('.remove-actividad').addEventListener('click', () => newElement.remove());
         });
 
@@ -402,55 +396,57 @@
                 });
             });
 
+            // =======================================================================
+            // INICIO DE LA LÓGICA CORRECTA PARA LA SECCIÓN 7
+            // =======================================================================
             const actividadesAplanadas = [];
-            let tituloCounter = 1;
-            let subTituloCounter = 1;
-            let lastTituloNum = '';
+            let contadores = [0, 0, 0, 0]; // Un contador para cada nivel de jerarquía.
 
             document.querySelectorAll('.actividad-item-container').forEach(item => {
                 const estilo = item.querySelector('.actividad-estilo').value;
                 const texto = item.querySelector('.actividad-texto').value;
                 
-                if (!texto) return;
-                
-                const sangriaEstructural = '';
-                let prefijoDeEstilo = '';
+                if (!texto) return; // Ignorar líneas vacías
 
+                let nivel = 0;
+                let numeroViñeta = '';
+
+                // Asignar nivel basado en la selección del usuario
                 switch (estilo) {
-                    case 'titulo':
-                        lastTituloNum = `7.${tituloCounter}`;
-                        prefijoDeEstilo = `${lastTituloNum} `;
-                        tituloCounter++;
-                        subTituloCounter = 1; 
-                        break;
-                    case 'subtitulo':
-                        if (lastTituloNum) {
-                            prefijoDeEstilo = `${lastTituloNum}.${subTituloCounter} `;
-                            subTituloCounter++;
-                        } else {
-                           prefijoDeEstilo = `- `;
-                        }
-                        break;
-                    case 'guion':
-                        prefijoDeEstilo = `- `;
-                        break;
-                    case 'check':
-                        prefijoDeEstilo = `✓ `;
-                        break;
-                    case 'normal':
-                    default:
-                        prefijoDeEstilo = '';
-                        break;
+                    case 'titulo':     nivel = 1; break;
+                    case 'subtitulo':  nivel = 2; break;
+                    case 'guion':      nivel = 3; break;
+                    case 'check':      nivel = 4; break;
+                    default:           nivel = 0; break;
+                }
+
+                if (nivel > 0) {
+                    // Incrementar el contador del nivel actual
+                    contadores[nivel - 1]++;
+                    
+                    // Resetear los contadores de los niveles inferiores
+                    for (let i = nivel; i < contadores.length; i++) {
+                        contadores[i] = 0;
+                    }
+
+                    // Construir el número de la viñeta (ej: "7.1.2")
+                    let numeroParcial = '7';
+                    for (let i = 0; i < nivel; i++) {
+                        numeroParcial += '.' + contadores[i];
+                    }
+                    numeroViñeta = numeroParcial;
                 }
                 
-                const sangriaParaSaltoDeLinea = sangriaEstructural + ' '.repeat(prefijoDeEstilo.length);
-                const textoConSangriaColgante = texto.replace(/\n/g, '\n' + sangriaParaSaltoDeLinea);
-                const textoFinal = sangriaEstructural + prefijoDeEstilo + textoConSangriaColgante;
-                
+                // Agregar el objeto estructurado al array
                 actividadesAplanadas.push({ 
-                    texto: textoFinal
+                    texto: texto,        // El texto puro que ingresó el usuario
+                    nivel: nivel,        // El nivel de jerarquía (0-4)
+                    numero: numeroViñeta // El número calculado (ej: "7.1.1")
                 });
             });
+            // =======================================================================
+            // FIN DE LA LÓGICA PARA LA SECCIÓN 7
+            // =======================================================================
 
             const finalJson = {
                 titulo1: data.titulo1 || '',
@@ -474,7 +470,7 @@
                 registros: Array.from(document.querySelectorAll('.registro-input')).map(i => ({ texto: i.value })).filter(o => o.texto),
                 
                 responsabilidades_lista: responsabilidadesAplanadas,
-                descripcion_actividad_lista: actividadesAplanadas,
+                descripcion_actividad_lista: actividadesAplanadas, // Usamos el nuevo array estructurado
                 
                 control_cambios: Array.from(document.querySelectorAll('.cambio-row')).map(row => ({
                     version: row.querySelector('.cambio-version').value,
@@ -483,7 +479,7 @@
                 })).filter(o => o.version && o.fecha_modificacion && o.descripcion_cambio)
             };
 
-            console.log("JSON plano generado:", JSON.stringify(finalJson, null, 2));
+            console.log("JSON Generado:", JSON.stringify(finalJson, null, 2));
             sendDataToN8n(finalJson);
         });
 
@@ -493,10 +489,7 @@
             submitBtn.textContent = 'Enviando...';
             submitBtn.disabled = true;
 
-            // 1. Obtenemos el email del nuevo campo
             const emailUsuario = document.getElementById('email_usuario').value;
-
-            // 2. Construimos la URL del webhook con el email como parámetro de consulta
             const baseWebhookURL = 'https://agentes-liw-n8n.6tpykr.easypanel.host/webhook/aec6ee18-fca8-401d-98ac-22677f5237f2';
             const webhookURL = `${baseWebhookURL}?email=${encodeURIComponent(emailUsuario)}`;
 
@@ -514,7 +507,7 @@
                 return response.json();
             })
             .then(result => {
-                alert('¡Éxito! Los datos han sido enviados al sistema.');
+                alert('¡Éxito! Los datos han sido enviados al sistema para generar el documento.');
                 console.log('Respuesta del sistema:', result);
             })
             .catch(error => {
@@ -522,7 +515,7 @@
                 alert(`Hubo un error al enviar los datos: ${error.message}`);
             })
             .finally(() => {
-                submitBtn.textContent = originalText;
+                submitBtn.textContent = 'Generar Documento';
                 submitBtn.disabled = false;
             });
         }
